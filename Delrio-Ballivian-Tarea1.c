@@ -18,8 +18,7 @@ int imprimir_pantalla(){
     char ch[100][50];
     FILE*file;
     file=fopen("posicionesJ1.txt","r");
-    printf("ola,ptoqweassassfddsaad");
-    
+
     //char str[MAXCHAR];
     printf("vamo vien \n");
     while(1){
@@ -29,9 +28,7 @@ int imprimir_pantalla(){
             ch[i][k++] = r;
             r = (char)fgetc(file);
             if ((r >= '0' && r <= '9')){
-                //ch[i][k++] = r;
-                //r = (char)fgetc(file);
-                printf(" weas: %c\n",r);
+                printf(" numeros a guardar: %c\n",r);
                 }
             
             }
