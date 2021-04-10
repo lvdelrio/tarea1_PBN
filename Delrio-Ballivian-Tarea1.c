@@ -24,7 +24,7 @@ int imprimir_pantalla(){
     while(1){
         char r =(char)fgetc(file);
         int k = 0;
-        printf("pico pal q lee");
+        printf("pico pal q lee, y el git la chupa con lechuga");
         while (!feof(file)){
             ch[i][k++] = r;
             r = (char)fgetc(file);
