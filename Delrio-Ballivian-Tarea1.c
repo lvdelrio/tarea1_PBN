@@ -18,7 +18,7 @@ int imprimir_pantalla(){
     char ch[100][50];
     FILE*file;
     file=fopen("posicionesJ1.txt","r");
-    printf("ola,pto");
+    printf("ola,ptoqweassas");
     
     //char str[MAXCHAR];
     printf("vamo vien \n");
