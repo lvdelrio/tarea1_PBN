@@ -42,7 +42,7 @@ int imprimir_pantalla(){
         i++;
     }
 
-    
+    printf("Chupalo github qlo metete el git por donde te quepa\n");
     fclose(file);
     return 0;
     }
