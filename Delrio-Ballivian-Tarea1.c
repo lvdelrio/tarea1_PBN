@@ -14,10 +14,10 @@ int incomingShot(char map[][max_col]);
 void welcomeScreen();
 
 int imprimir_pantalla(){
-    char matriz[][];
+    char matriz[12][12];
      for (int i=0;i<12;i++){
-        for (int j=0 ; i<12;j++){
-            matriz[i][j]="[_]";
+        for (int j=0 ; j<12;j++){
+            matriz[i][j] = '_';
             printf("%c",matriz[i][j]);
             }
         printf("\n");
