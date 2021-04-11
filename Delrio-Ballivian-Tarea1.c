@@ -15,22 +15,28 @@ void welcomeScreen();
 
 int imprimir_pantalla(){
     char matriz[12][12];
-     for (int i=0;i<12;i++){
-        for (int j=0 ; j<12;j++){
+    printf("  A  B  C  D  E  F  G  H  I  J\n");
+     for (int i=0;i<10;i++){
+         printf("%d",i);
+        for (int j=0 ; j<10;j++){
             matriz[i][j] = '_';
-            printf("%c",matriz[i][j]);
+            printf("[%c]",matriz[i][j]);
             }
-        printf("\n");
+        printf("%d\n",i);
+        if (i==9){
+            printf("  A  B  C  D  E  F  G  H  I  J\n");
+            }
         }
 
     return 0;
     }
 
+
 int main (){
     //welcomeScreen();
     imprimir_pantalla();
 
-        int i=0;
+    int i=0;
     char ch[100][50];
     FILE*file;
     file=fopen("posicionesJ1.txt","r");
