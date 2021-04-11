@@ -32,34 +32,71 @@ int imprimir_pantalla(){
     }
 
 
-int main (){
+int main (int argc, char** argv){
+//int main ()
+    //Modo
+    char *mode = argv[1];
+    //Files
+    char *file_J1, *file_J2;
+    //Ver ffallo en jugador 2 core dumped arregla la wea plsxdxddxdxd
+    file_J1 = argv[2];
+    file_J2 = argv[3]; //JUGADOR 2
+    strncat(file_J1, ".txt", 5);
+    strncat(file_J2, ".txt", 5);
+    printf("%s \n", file_J1);
+    printf("%s \n", file_J2);
+    FILE*pos_J1;
+    FILE*pos_J2;
+    pos_J1=fopen(file_J1,"r");
+    pos_J2=fopen(file_J2,"r");
+
+    
     //welcomeScreen();
     imprimir_pantalla();
-
     int i=0;
     char ch[100][50];
-    FILE*file;
-    file=fopen("posicionesJ1.txt","r");
 
     //char str[MAXCHAR];
     printf("vamo vien \n");
-    while(1){
-        char r =(char)fgetc(file);
+    while(1){ //Archivo 1
+        char r =(char)fgetc(pos_J1);
         int k = 0;
         printf("pico pal q lee, y el git la chupa con lechuga");
-        while (!feof(file)){
+        while (!feof(pos_J1)){
             ch[i][k++] = r;
-            r = (char)fgetc(file);
+            r = (char)fgetc(pos_J1);
             if ((r >= '0' && r <= '9')){
                 printf(" numeros a guardar: %c\n",r);
                 }
             
             }
         ch[i][k]=0;
-        if(feof(file)){
+        if(feof(pos_J1)){
             break;
             }
         i++;
 
     }
+    while(1){
+        char r =(char)fgetc(pos_J2);
+        int k = 0;
+        printf("pico pal q lee, y el git la chupa con lechuga");
+        while (!feof(pos_J2)){
+            ch[i][k++] = r;
+            r = (char)fgetc(pos_J2);
+            if ((r >= '0' && r <= '9')){
+                printf(" numeros a guardar: %c\n",r);
+                }
+            
+            }
+        ch[i][k]=0;
+        if(feof(pos_J2)){
+            break;
+            }
+        i++;
+
+    }
+    fclose(pos_J1);
+    fclose(pos_J2);
+    return 0;
 }
