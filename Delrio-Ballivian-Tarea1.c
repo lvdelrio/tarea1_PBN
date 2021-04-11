@@ -14,7 +14,23 @@ int incomingShot(char map[][max_col]);
 void welcomeScreen();
 
 int imprimir_pantalla(){
-    int i=0;
+    char matriz[][];
+     for (int i=0;i<12;i++){
+        for (int j=0 ; i<12;j++){
+            matriz[i][j]="[_]";
+            printf("%c",matriz[i][j]);
+            }
+        printf("\n");
+        }
+
+    return 0;
+    }
+
+int main (){
+    //welcomeScreen();
+    imprimir_pantalla();
+
+        int i=0;
     char ch[100][50];
     FILE*file;
     file=fopen("posicionesJ1.txt","r");
@@ -38,15 +54,6 @@ int imprimir_pantalla(){
             break;
             }
         i++;
-    }
-
-    printf("Chupalo github qlo metete el git por donde te quepa\n");
-    fclose(file);
-    return 0;
-    }
-
-int main (){
-    //welcomeScreen();
-    imprimir_pantalla();
 
     }
+}
