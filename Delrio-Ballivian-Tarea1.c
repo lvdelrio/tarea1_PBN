@@ -31,24 +31,34 @@ int imprimir_pantalla(){
     return 0;
     }
 
+char* concat(const char *s1, const char *s2){
+    char *result = malloc(strlen(s1) + strlen(s2) + 1); // +1 for the null-terminator
+    // in real code you would check for errors in malloc here
+    strcpy(result, s1);
+    strcat(result, s2);
+    return result;
+    }
+
 
 int main (int argc, char** argv){
 //int main ()
     //Modo
     char *mode = argv[1];
-    //Files
-    char *file_J1, *file_J2;
-    //Ver ffallo en jugador 2 core dumped arregla la wea plsxdxddxdxd
-    file_J1 = argv[2];
-    file_J2 = argv[3]; //JUGADOR 2
-    strncat(file_J1, ".txt", 5);
-    strncat(file_J2, ".txt", 5);
-    printf("%s \n", file_J1);
-    printf("%s \n", file_J2);
+
+    char *file_J1;
+    char *file_J2;
+    file_J1=argv[1];
+    file_J2=argv[2];
+
+    char* Archivo2=concat(file_J2,".txt");
+    char* Archivo1=concat(file_J1,".txt");
+    printf("%s\n",Archivo2);
+    printf("%s\n",Archivo1);
+
     FILE*pos_J1;
     FILE*pos_J2;
-    pos_J1=fopen(file_J1,"r");
-    pos_J2=fopen(file_J2,"r");
+    pos_J1=fopen(Archivo1,"r");
+    pos_J2=fopen(Archivo2,"r");
 
     
     //welcomeScreen();
@@ -98,5 +108,6 @@ int main (int argc, char** argv){
     }
     fclose(pos_J1);
     fclose(pos_J2);
+    
     return 0;
 }
