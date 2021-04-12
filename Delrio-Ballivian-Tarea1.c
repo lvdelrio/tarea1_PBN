@@ -39,12 +39,36 @@ char* concat(const char *s1, const char *s2){
     return result;
     }
 
+int coor_player(FILE* carpeta){
+    while(1){ //Archivo 1
+        printf("olo \n");
+        char r =(char)fgetc(carpeta);
+        char ch[100][50];
+        int k = 0;
+        int i=0;
+        while (!feof(carpeta)){
+            ch[i][k++] = r;
+            r = (char)fgetc(carpeta);
+            if ((r >= '0' && r <= '9')){
+                printf(" numeros a guardar: %c\n",r);
+                }
+            
+            }
+        ch[i][k]=0;
+        if(feof(carpeta)){
+            break;
+            }
+        i++;
+
+    }
+    return 0;
+}
+
 
 int main (int argc, char** argv){
 //int main ()
     //Modo
-    char *mode = argv[1];
-<<<<<<< HEAD
+    //char *mode = argv[1];
 
     char *file_J1;
     char *file_J2;
@@ -56,32 +80,12 @@ int main (int argc, char** argv){
     printf("%s\n",Archivo2);
     printf("%s\n",Archivo1);
 
+
     FILE*pos_J1;
     FILE*pos_J2;
     pos_J1=fopen(Archivo1,"r");
     pos_J2=fopen(Archivo2,"r");
 
-=======
-    //Files
-    char *file_J1, *file_J2;
-    //Ver ffallo en jugador 2 core dumped arregla la wea plsxdxddxdxd
-    file_J1 = argv[2];
-    file_J2 = argv[3]; //JUGADOR 2
-    char buffer[256], txt[5] = ".txt\0";
-    //for(int i = 0; i<4; ++i) printf("for 1 %s\n", argv[i]);
-    strcpy(buffer, file_J1);
-    strcat(file_J1, txt);
-
-    FILE*pos_J1;
-    FILE*pos_J2;
-    pos_J1=fopen(file_J1,"r");
-    //pos_J2=fopen(file_J2,"r"); DEJA LA
-    //for(int i = 0; i<4; ++i) printf("for 2 %s\n", argv[i]);
-    //REINICIAR TODAS LAS VARIABLES PARA EL J2 POR QUE DEJA 
-    //LA PURA CAGADA DE STRCAT.
-    //USAR MALLOC Y PICO LA WEA 
-    
->>>>>>> 15c256a97a6c7a814667488421f8889e0a542c71
     
     //welcomeScreen();
     imprimir_pantalla();
@@ -89,45 +93,15 @@ int main (int argc, char** argv){
     char ch[100][50];
 
     //char str[MAXCHAR];
+    //transformar esto en una funcion!!
     printf("vamo vien \n");
-    while(1){ //Archivo 1
-        char r =(char)fgetc(pos_J1);
-        int k = 0;
-        printf("pico pal q lee, y el git la chupa con lechuga");
-        while (!feof(pos_J1)){
-            ch[i][k++] = r;
-            r = (char)fgetc(pos_J1);
-            if ((r >= '0' && r <= '9')){
-                printf(" numeros a guardar: %c\n",r);
-                }
-            
-            }
-        ch[i][k]=0;
-        if(feof(pos_J1)){
-            break;
-            }
-        i++;
 
-    }
-    while(1){ //Archivo 2
-        char r =(char)fgetc(pos_J2);
-        int k = 0;
-        printf("pico pal q lee, y el git la chupa con lechuga");
-        while (!feof(pos_J2)){
-            ch[i][k++] = r;
-            r = (char)fgetc(pos_J2);
-            if ((r >= '0' && r <= '9')){
-                printf(" numeros a guardar: %c\n",r);
-                }
-            
-            }
-        ch[i][k]=0;
-        if(feof(pos_J2)){
-            break;
-            }
-        i++;
+    coor_player(pos_J1);
+    coor_player(pos_J2);
 
-    }
+
+    free(Archivo1); 
+    free(Archivo2); 
     fclose(pos_J1);
     fclose(pos_J2);
     
