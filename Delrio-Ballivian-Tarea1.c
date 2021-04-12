@@ -44,6 +44,7 @@ int main (int argc, char** argv){
 //int main ()
     //Modo
     char *mode = argv[1];
+<<<<<<< HEAD
 
     char *file_J1;
     char *file_J2;
@@ -60,6 +61,27 @@ int main (int argc, char** argv){
     pos_J1=fopen(Archivo1,"r");
     pos_J2=fopen(Archivo2,"r");
 
+=======
+    //Files
+    char *file_J1, *file_J2;
+    //Ver ffallo en jugador 2 core dumped arregla la wea plsxdxddxdxd
+    file_J1 = argv[2];
+    file_J2 = argv[3]; //JUGADOR 2
+    char buffer[256], txt[5] = ".txt\0";
+    //for(int i = 0; i<4; ++i) printf("for 1 %s\n", argv[i]);
+    strcpy(buffer, file_J1);
+    strcat(file_J1, txt);
+
+    FILE*pos_J1;
+    FILE*pos_J2;
+    pos_J1=fopen(file_J1,"r");
+    //pos_J2=fopen(file_J2,"r"); DEJA LA
+    //for(int i = 0; i<4; ++i) printf("for 2 %s\n", argv[i]);
+    //REINICIAR TODAS LAS VARIABLES PARA EL J2 POR QUE DEJA 
+    //LA PURA CAGADA DE STRCAT.
+    //USAR MALLOC Y PICO LA WEA 
+    
+>>>>>>> 15c256a97a6c7a814667488421f8889e0a542c71
     
     //welcomeScreen();
     imprimir_pantalla();
@@ -87,7 +109,7 @@ int main (int argc, char** argv){
         i++;
 
     }
-    while(1){
+    while(1){ //Archivo 2
         char r =(char)fgetc(pos_J2);
         int k = 0;
         printf("pico pal q lee, y el git la chupa con lechuga");
