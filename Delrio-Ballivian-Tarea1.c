@@ -40,7 +40,7 @@ char* concat(const char *s1, const char *s2){
     }
 //Esto me tira core dumped
 
-char leer(FILE* carpeta){
+char** leer(FILE* carpeta){
     
 
     char* token;
@@ -57,7 +57,6 @@ char leer(FILE* carpeta){
         
         while ((fgets(line, sizeof line, carpeta)) != NULL){
             char* linea = malloc(sizeof(char)*4);
-            printf( "ola men");
             token = strtok(line, ";");
             
             //strcpy(linea,"");
@@ -98,18 +97,17 @@ char leer(FILE* carpeta){
                     printf("%s\n",token);
                     token = strtok(NULL,"\n");
                     }
-                printf("\n%s",linea);
                 
                 
             }
             lineas[contador] = linea;
-            printf("mirame aqaui %s",lineas[0]);
+
             contador++;
         
             
             
         }
-        printf("ola como esta: %c",lineas[0][0]);
+
         
         for (int i=0;i<4;i++){
             for(int j =0;j<4;j++){
@@ -124,17 +122,19 @@ char leer(FILE* carpeta){
     else{
         printf("Error\n");  
         } 
-    //return 0;
+    return lineas;
     
     
 }
 
 
+//gcc -std=c99 -Wall -Wextra -Wundef -Werror -Wuninitialized -Winit-self Delrio-Ballivian-Tarea1.c -o salida  && ./salida -v posicionesJ1 posicionesJ2
 
 int main (int argc, char** argv){
 //int main ()
     //Modo
-    char *mode = argv[1];
+    //char *mode = argv[1];
+    printf("%d",argc);
 
     char *file_J1;
     char *file_J2;
@@ -160,7 +160,8 @@ int main (int argc, char** argv){
     //transformar esto en una funcion!!
     printf("vamo vien \n");
     
-    leer(pos_J1);
+    char** J1 = leer(pos_J1);
+    printf("%c",J1[0][0]);
     //coor_player(pos_J1);
     //coor_player(pos_J2);
 
