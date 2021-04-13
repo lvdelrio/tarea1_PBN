@@ -162,8 +162,6 @@ int main (int argc, char** argv){
     
     char** J1 = leer(pos_J1);
     printf("%c",J1[0][0]);
-    //coor_player(pos_J1);
-    //coor_player(pos_J2);
 
 
     free(Archivo1); 
