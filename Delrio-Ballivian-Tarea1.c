@@ -13,7 +13,7 @@ int executeShot(int g,int A[][10]);
 int incomingShot(char map[][max_col]);
 void welcomeScreen();
 
-int imprimir_pantalla(){
+int crear_pantalla(){
     char matriz[12][12];
     printf("  A  B  C  D  E  F  G  H  I  J\n");
      for (int i=0;i<10;i++){
@@ -29,7 +29,87 @@ int imprimir_pantalla(){
         }
 
     return 0;
-    }
+}
+//Duplicado para recivir info con array
+char** imprimir_pantalla(char** Jpos){
+    char matriz[12][12];
+    /*
+    //Archivo be like:
+    int x = 0; //en cual fila (barco) estamos
+    int largo = Jpos[x][0]; //Largo barco
+    char posX = Jpos[x][1]; //Posicion en x (A, B, C ...)
+    int posY = Jpos[x][2]; //Posicion en y (0, 1, 2, ...)
+    char orientacion = Jpos[x][3]; //orientacion
+    */
+    int largo;
+    char posX;
+    int posY;
+    char orientacion;
+    int intposX;
+    
+    //poner barcos qlos, cambiar la wea de x para los demas barcos
+    //portaaviones
+    for (int c=0;c<3;c++){ //Recorrer Filas del array
+        //Largo barco
+        largo = Jpos[0][c];
+        //PosX
+        posX = Jpos[1][c];
+        
+        if ((strcmp(&posX,"A")) == 0) intposX = 0;
+/*
+        else if (strcmp(posX, 'B') == 1) intposX = 1;
+        else if (strcmp(posX, 'C') == 1) intposX = 2;
+        else if (strcmp(posX, 'D') == 1) intposX = 3;
+        else if (strcmp(posX, 'E') == 1) intposX = 4;
+        else if (strcmp(posX, 'F') == 1) intposX = 5;
+        else if (strcmp(posX, 'G') == 1) intposX = 6;
+        else if (strcmp(posX, 'H') == 1) intposX = 7;
+        else if (strcmp(posX, 'I') == 1) intposX = 8;
+        else if (strcmp(posX, 'J') == 1) intposX = 9;
+        */
+
+        else printf("Que chucha weon \n");
+        //PosY
+        posY = Jpos[c][2];
+        //oreintacion 
+        orientacion = Jpos[c][3];// Recorrer Las lineas y poner en MATRIZ
+        if (strcmp(orientacion, 'h') == 1){
+            for(int i=0;i<largo;i++) {
+                intposX += i;
+                matriz[intposX][posY] = 'b';
+            }
+        }
+        else{
+            for(int i=0;i<largo;i++) {
+                posY += i;
+                matriz[intposX][posY] = 'b';
+            }
+
+        }        
+            
+    } 
+
+    printf("  A  B  C  D  E  F  G  H  I  J\n");
+     for (int i=0;i<10;i++){
+         printf("%d",i);
+        for (int j=0 ; j<10;j++){
+            if (strcmp(matriz[i][j], 'b') == 1){
+                continue;
+            }  //no hacer nada pq esos espacios ya son 'b'
+            else{
+                matriz[i][j] = '_';
+            }
+             ; //rellear con '_' ya que no hay barco
+            printf("[%c]",matriz[i][j]);
+            }
+        printf("%d\n",i);
+        if (i==9){
+            printf("  A  B  C  D  E  F  G  H  I  J\n");
+            }
+        }
+
+    return 0;
+}
 
 char* concat(const char *s1, const char *s2){
     char *result = malloc(strlen(s1) + strlen(s2) + 1); // +1 for the null-terminator
@@ -67,34 +147,34 @@ char** leer(FILE* carpeta){
                 
                 if(i==0){   
 
-                    printf("\n%s\n",token);
+                    //printf("\n%s\n",token);
                     token = strtok(NULL,";");
                     }
                 
                 if(i==1){  
 
                     linea=concat(linea,token);
-                    printf("%d\n",atoi(token));
+                    //printf("%d\n",atoi(token));
                     token = strtok(NULL,";");
                     
                     }
                     
                 if(i==2){   
                     linea=concat(linea,token);
-                    printf("%s\n",token);
+                    //printf("%s\n",token);
                     token = strtok(NULL,";");
                     
                     }
                     
                 if(i==3){   
                     linea=concat(linea,token);
-                    printf("%d\n",atoi(token));
+                    //printf("%d\n",atoi(token));
                     token = strtok(NULL,";");
                     }
 
                 if(i==4){   
                     linea=concat(linea,token);
-                    printf("%s\n",token);
+                    //printf("%s\n",token);
                     token = strtok(NULL,"\n");
                     }
                 
@@ -111,7 +191,7 @@ char** leer(FILE* carpeta){
         
         for (int i=0;i<4;i++){
             for(int j =0;j<4;j++){
-                printf("\n%c",lineas[i][j]);
+                //printf("\n%c",lineas[i][j]);
             }
         }
         
@@ -154,14 +234,16 @@ int main (int argc, char** argv){
 
     
     //welcomeScreen();
-    imprimir_pantalla();
+    crear_pantalla();
 
     //char str[MAXCHAR];
     //transformar esto en una funcion!!
     printf("vamo vien \n");
     
     char** J1 = leer(pos_J1);
-    printf("%c",J1[0][0]);
+    //printf("%c",J1[0][0]);
+    printf("vamo vien  parte 2\n");
+    imprimir_pantalla(J1);
 
 
     free(Archivo1); 
