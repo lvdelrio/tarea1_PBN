@@ -38,42 +38,111 @@ char* concat(const char *s1, const char *s2){
     strcat(result, s2);
     return result;
     }
+//Esto me tira core dumped
 
-int coor_player(int largo){
-    for(int x=0; x<int largo;x++){
-        char *token = strlok(boats[x],"";);
-        }
+char leer(FILE* carpeta){
+    
 
-    for int (i = 0; i<5;i++){
-        if (token)
-    }
+    char* token;
+    int i;
+    char **lineas = malloc(sizeof(char*)*4);
+    
+    if (carpeta != NULL){
+        char line[255];
+        
+        int contador = 0;
 
+        
 
-    /*
-        for(int i=0;i<20;i++){
-            for(int j=0;j<strlen(ch[i]);j++){
-                printf("ola como estas: %c\n",ch[i][j]);
-                }
+        
+        while ((fgets(line, sizeof line, carpeta)) != NULL){
+            char* linea = malloc(sizeof(char)*4);
+            printf( "ola men");
+            token = strtok(line, ";");
+            
+            //strcpy(linea,"");
+            
+            for(i=0;i<5;i++){
+                
+                
+                
+                if(i==0){   
 
+                    printf("\n%s\n",token);
+                    token = strtok(NULL,";");
+                    }
+                
+                if(i==1){  
+
+                    linea=concat(linea,token);
+                    printf("%d\n",atoi(token));
+                    token = strtok(NULL,";");
+                    
+                    }
+                    
+                if(i==2){   
+                    linea=concat(linea,token);
+                    printf("%s\n",token);
+                    token = strtok(NULL,";");
+                    
+                    }
+                    
+                if(i==3){   
+                    linea=concat(linea,token);
+                    printf("%d\n",atoi(token));
+                    token = strtok(NULL,";");
+                    }
+
+                if(i==4){   
+                    linea=concat(linea,token);
+                    printf("%s\n",token);
+                    token = strtok(NULL,"\n");
+                    }
+                printf("\n%s",linea);
+                
+                
             }
-    */
-    return 0;
+            lineas[contador] = linea;
+            printf("mirame aqaui %s",lineas[0]);
+            contador++;
+        
+            
+            
+        }
+        printf("ola como esta: %c",lineas[0][0]);
+        
+        for (int i=0;i<4;i++){
+            for(int j =0;j<4;j++){
+                printf("\n%c",lineas[i][j]);
+            }
+        }
+        
+        
+        //fclose(carpeta);
+
+    }
+    else{
+        printf("Error\n");  
+        } 
+    //return 0;
+    
+    
 }
+
 
 
 int main (int argc, char** argv){
 //int main ()
     //Modo
-    //char *mode = argv[1];
+    char *mode = argv[1];
 
     char *file_J1;
     char *file_J2;
-    file_J1=argv[1];
-    file_J2=argv[2];
+    file_J1=argv[2];
+    file_J2=argv[3];
 
     char* Archivo2=concat(file_J2,".txt");
     char* Archivo1=concat(file_J1,".txt");
-    printf("%d\n",argc);
     printf("%s\n",Archivo2);
     printf("%s\n",Archivo1);
 
@@ -87,19 +156,20 @@ int main (int argc, char** argv){
     //welcomeScreen();
     imprimir_pantalla();
 
-
     //char str[MAXCHAR];
     //transformar esto en una funcion!!
     printf("vamo vien \n");
-
-    coor_player();
-    coor_player(pos_J2);
+    
+    leer(pos_J1);
+    //coor_player(pos_J1);
+    //coor_player(pos_J2);
 
 
     free(Archivo1); 
     free(Archivo2); 
     fclose(pos_J1);
     fclose(pos_J2);
+
     
     return 0;
 }
