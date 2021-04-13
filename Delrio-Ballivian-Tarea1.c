@@ -39,28 +39,24 @@ char* concat(const char *s1, const char *s2){
     return result;
     }
 
-int coor_player(FILE* carpeta){
-    while(1){ //Archivo 1
-        printf("olo \n");
-        char r =(char)fgetc(carpeta);
-        char ch[100][50];
-        int k = 0;
-        int i=0;
-        while (!feof(carpeta)){
-            ch[i][k++] = r;
-            r = (char)fgetc(carpeta);
-            if ((r >= '0' && r <= '9')){
-                printf(" numeros a guardar: %c\n",r);
-                }
-            
-            }
-        ch[i][k]=0;
-        if(feof(carpeta)){
-            break;
-            }
-        i++;
+int coor_player(int largo){
+    for(int x=0; x<int largo;x++){
+        char *token = strlok(boats[x],"";);
+        }
 
+    for int (i = 0; i<5;i++){
+        if (token)
     }
+
+
+    /*
+        for(int i=0;i<20;i++){
+            for(int j=0;j<strlen(ch[i]);j++){
+                printf("ola como estas: %c\n",ch[i][j]);
+                }
+
+            }
+    */
     return 0;
 }
 
@@ -77,6 +73,7 @@ int main (int argc, char** argv){
 
     char* Archivo2=concat(file_J2,".txt");
     char* Archivo1=concat(file_J1,".txt");
+    printf("%d\n",argc);
     printf("%s\n",Archivo2);
     printf("%s\n",Archivo1);
 
@@ -89,14 +86,13 @@ int main (int argc, char** argv){
     
     //welcomeScreen();
     imprimir_pantalla();
-    int i=0;
-    char ch[100][50];
+
 
     //char str[MAXCHAR];
     //transformar esto en una funcion!!
     printf("vamo vien \n");
 
-    coor_player(pos_J1);
+    coor_player();
     coor_player(pos_J2);
 
 
