@@ -252,9 +252,9 @@ int main (int argc, char** argv){
     char** J1 = leer(pos_J1);
     //printf("%c",J1[0][0]);
     printf("vamo vien  parte 2\n");
-    char** weademat;
-    weademat = imprimir_pantalla(J1);
-    printf("%c pos challa\n", weademat[0][1]);
+    
+    imprimir_pantalla(J1);
+    //printf("%c pos challa\n", weademat[0][1]);
 
     free(Archivo1); 
     free(Archivo2); 
