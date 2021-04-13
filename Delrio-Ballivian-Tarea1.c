@@ -32,7 +32,7 @@ int crear_pantalla(){
 }
 //Duplicado para recivir info con array
 char** imprimir_pantalla(char** Jpos){
-    char matriz[12][12];
+    char matriz[10][10];
     /*
     //Archivo be like:
     int x = 0; //en cual fila (barco) estamos
@@ -57,20 +57,7 @@ char** imprimir_pantalla(char** Jpos){
 
         posX = Jpos[c][1];
         //printf("%c Jpos despues\n", Jpos[c][1]);
-        printf("%c posX\n", posX); //Segundo loop esta wea deja la pura zorra
-        /*
-        if (strcmp(posX, "A") == 0) intposX = 0;
-        else if (strcmp(&posX, "B") == 0) intposX = 1;
-        else if (strcmp(&posX, "C") == 0) intposX = 2;
-        else if (strcmp(&posX, "D") == 0) intposX = 3;
-        else if (strcmp(&posX, "E") == 0) intposX = 4;
-        else if (strcmp(&posX, "F") == 0) intposX = 5;
-        else if (strcmp(&posX, "G") == 0) intposX = 6;
-        else if (strcmp(&posX, "H") == 0) intposX = 7;
-        else if (strcmp(&posX, "I") == 0) intposX = 8;
-        else if (strcmp(&posX, "J") == 0) intposX = 9;
-        else printf("Si entra aqui fallo la cagada\n");
-        */
+        printf("%c posX\n", posX); 
         if (posX == 65) intposX = 0;
         else if (posX == 66) intposX = 1;
         else if (posX == 67) intposX = 2;
@@ -129,7 +116,8 @@ char** imprimir_pantalla(char** Jpos){
             }
         }
 
-    return 0;
+    return 0; //matriz es el juego 
+                //no se puede retornar matriz :c
 }
 
 char* concat(const char *s1, const char *s2){
@@ -264,8 +252,9 @@ int main (int argc, char** argv){
     char** J1 = leer(pos_J1);
     //printf("%c",J1[0][0]);
     printf("vamo vien  parte 2\n");
-    imprimir_pantalla(J1);
-
+    char** weademat;
+    weademat = imprimir_pantalla(J1);
+    printf("%c pos challa\n", weademat[0][1]);
 
     free(Archivo1); 
     free(Archivo2); 
