@@ -51,6 +51,7 @@ char** imprimir_pantalla(char** Jpos){
     //portaaviones
     for (int c=0;c<3;c++){ //Recorrer Filas del array
         //Largo barco
+<<<<<<< HEAD
         largo = Jpos[0][c];
         //PosX
         posX = Jpos[1][c];
@@ -69,31 +70,55 @@ char** imprimir_pantalla(char** Jpos){
         */
 
         else printf("Que chucha weon \n");
+=======
+        largo = Jpos[c][0] - 48;
+        printf("%d largo\n", largo);
+        //PosX
+        posX = Jpos[c][1];
+        printf("%s posX\n", &posX); //Segundo loop esta wea deja la pura zorra
+        if (strcmp(&posX, "A") == 0) intposX = 0;
+        else if (strcmp(&posX, "B") == 0) intposX = 1;
+        else if (strcmp(&posX, "C") == 0) intposX = 2;
+        else if (strcmp(&posX, "D") == 0) intposX = 3;
+        else if (strcmp(&posX, "E") == 0) intposX = 4;
+        else if (strcmp(&posX, "F") == 0) intposX = 5;
+        else if (strcmp(&posX, "G") == 0) intposX = 6;
+        else if (strcmp(&posX, "H") == 0) intposX = 7;
+        else if (strcmp(&posX, "I") == 0) intposX = 8;
+        else if (strcmp(&posX, "J") == 0) intposX = 9;
+        printf("%d int posX\n", intposX);
+        //else printf("Que chucha weon \n");
+>>>>>>> 8c9956b6d59fdc47be15bac46ed533a85650fa1e
         //PosY
-        posY = Jpos[c][2];
+        posY = Jpos[c][2] - 48;
+        printf("%d posY\n", posY);
         //oreintacion 
         orientacion = Jpos[c][3];// Recorrer Las lineas y poner en MATRIZ
-        if (strcmp(orientacion, 'h') == 1){
-            for(int i=0;i<largo;i++) {
-                intposX += i;
+        printf("%s oreintacion\n", &orientacion);
+        printf("%d wea de strncmsdsadhjaskld esa wea \n", strcmp(&orientacion, "h"));
+        if (strcmp(&orientacion, "h") == 0){
+            for(int i=0;i<largo;i++){
                 matriz[intposX][posY] = 'b';
+                printf("%d , %d horizontal \n", intposX, posY);
+                intposX ++;
             }
         }
-        else{
-            for(int i=0;i<largo;i++) {
-                posY += i;
+        else if(strcmp(&orientacion, "v") == 0){
+            for(int i=0;i<largo;i++){
                 matriz[intposX][posY] = 'b';
+                printf("%d , %d vertical \n", intposX, posY);
+                posY++;
             }
-
         }        
-            
+        printf("\n");
     } 
 
     printf("  A  B  C  D  E  F  G  H  I  J\n");
      for (int i=0;i<10;i++){
          printf("%d",i);
         for (int j=0 ; j<10;j++){
-            if (strcmp(matriz[i][j], 'b') == 1){
+            char pos_actual = matriz[i][j]; //Esta wea tambien esta dejando la zorra 
+            if (strcmp(&pos_actual, "b") == 1){
                 continue;
             }  //no hacer nada pq esos espacios ya son 'b'
             else{
