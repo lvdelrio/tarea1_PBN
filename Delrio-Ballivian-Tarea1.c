@@ -14,13 +14,62 @@ int incomingShot(char map[][max_col]);
 void welcomeScreen();
 
 
+//condicion de ganar-------------------------------|
+//las condiciones para ganar son, J1 mata al J2 o CPU, por ende recibe ambos tableros
+int condicion_ganar(char** tablero,int player_num){
+    for (int i=0;i<10;i++){
+        for(int j=0;j>10;j++){
+            //verifica que en el tablero 1 son puros puntos x o guion
+            if((tablero[i][j] != 88) || (tablero[i][j] != 95) || (tablero[i][j] != 46)){
+                return 0;
+                }
+            
+            else{
+                printf("Jugador %d gano el juego",player_num);
+                exit(0);
+                }
+
+        }
+    }
+
+}
+
+
+
+
+
+
+
 char** imprimir_tablero(char** matriz){
 
     printf("  A  B  C  D  E  F  G  H  I  J\n");
      for (int i=0;i<10;i++){
+         
          printf("%d",i);
         for (int j=0 ; j<10;j++){
-            matriz[i][j] = '_';
+            //Comprobar si la weita es barco y lo esconde
+            if (matriz[i][j] > 96 && matriz[i][j] < 101){
+                printf("[%c]", '_');
+            }
+            else{
+                printf("[%c]",matriz[i][j]);
+            }
+            
+        }
+        printf("%d\n",i);
+        if (i==9){
+            printf("  A  B  C  D  E  F  G  H  I  J\n");
+            }
+        }
+
+    return 0;
+}
+char** imprimir_tablero_Cheat(char** matriz){
+
+    printf("  A  B  C  D  E  F  G  H  I  J\n");
+     for (int i=0;i<10;i++){
+         printf("%d",i);
+        for (int j=0 ; j<10;j++){ 
             printf("[%c]",matriz[i][j]);
             }
         printf("%d\n",i);
@@ -31,12 +80,13 @@ char** imprimir_tablero(char** matriz){
 
     return 0;
 }
+
 //Duplicado para recivir info con array
 
 int traducir(char posX){
     int intposX = 0;
 
-    printf("la wea mal hecha es: %c\n", posX);
+    //printf("la wea mal hecha es: %c\n", posX);
     if (posX == 65) intposX = 0;
     else if (posX == 66) intposX = 1;
     else if (posX == 67) intposX = 2;
@@ -47,15 +97,44 @@ int traducir(char posX){
     else if (posX == 72) intposX = 7;
     else if (posX == 73) intposX = 8;
     else if (posX == 74) intposX = 9;
-    else printf("Si entra aqui fallo la cagada\n");
+    else intposX = 99;
     return intposX;
 
 }
-
+int comprobar(int largo, int intposX, int posY, char orientacion){
+    if(largo < 1 || largo > 10 || posY > 9 || posY < 0){
+        printf("ERROR, Coordenadas son negativas y/o mayores a las permitidas \n");
+        exit(0);
+    }
+    if(orientacion == 104){
+        printf("%d, %c COMPROBAR en if\n", intposX, orientacion);
+        if(intposX == 9){
+            printf("ERROR, Barco sobrepasa el borde derecho del tablero\n");
+            exit(0);
+        }
+        else if((intposX + largo - 1) > 9){
+            printf("ERROR, Barco sobrepasa el borde derecho\n");
+            exit(0);
+        }
+    }
+    if(orientacion == 118){
+        if((posY + largo - 1) > 9){
+            printf("ERROR, Barco sobrepasa el borde inferior\n");
+            exit(0);
+        }
+        if(posY == 9){
+            printf("ERROR, Barco sobrepasa el borde inferior\n");
+            exit(0);
+        }
+    
+    }
+    //ERROR:
+    //Barcos ensima de otros barcos
+    return 0;
+}
 //------------------------------aqui empieza la wea del cucho
 char** imprimir_pantalla(char** Jpos){
-
-    char matriz_u[10][10];
+    
     char** matriz = malloc(10*sizeof(char*));
     for(int i=0; i<10;i++){
         matriz[i]=malloc(10*sizeof(char));
@@ -72,11 +151,10 @@ char** imprimir_pantalla(char** Jpos){
 
     /*
     //Archivo be like:
-    int x = 0; //en cual fila (barco) estamos
-    int largo = Jpos[x][0]; //Largo barco
-    char posX = Jpos[x][1]; //Posicion en x (A, B, C ...)
-    int posY = Jpos[x][2]; //Posicion en y (0, 1, 2, ...)
-    char orientacion = Jpos[x][3]; //orientacion
+    //Jpos[x][0]; Largo barco
+    //Jpos[x][1]; Posicion en x (A, B, C ...)
+    //Jpos[x][2]; Posicion en y (0, 1, 2, ...)
+    //Jpos[x][3]; //orientacion
     */
     
     int largo;
@@ -84,76 +162,85 @@ char** imprimir_pantalla(char** Jpos){
     int posY;
     char orientacion;
     int intposX;
-    //poner barcos qlos, cambiar la wea de x para los demas barcos
-    //portaaviones
     char lista[4]={'a','b','c','d'};
     for (int c=0;c<4;c++){ //Recorrer Filas del array
         //Largo barco
         largo = Jpos[c][0] - 48;
-        printf("%d largo\n", largo);
-        //PosX
+        //printf("%d largo\n", largo);
 
+        //PosX
         posX = Jpos[c][1];
         //printf("%c Jpos despues\n", Jpos[c][1]);
-        printf("%c posX\n", posX); 
+        printf("%c posX\n", posX);  
 
 
         intposX = traducir(posX);
 
 
-        printf("%d int posX\n", intposX);
+        //printf("%d int posX\n", intposX);
         //PosY
         posY = Jpos[c][2] - 48;
-        printf("%d posY\n", posY);
+        //printf("%d posY\n", posY);
         //oreintacion 
         orientacion = Jpos[c][3];
-        printf("%c orientacion\n", (char)orientacion); // Recorrer Las lineas y poner en MATRIZ
+        //printf("%c orientacion\n", (char)orientacion); // Recorrer Las lineas y poner en MATRIZ
         
         //
+        comprobar(largo, intposX, posY, orientacion); //C O M P R O B A R  
         if (orientacion == 104){ //horizontal
+            if(matriz[posY][intposX] > 96 && matriz[posY][intposX] < 101){ //Comprobar superposicion
+                printf("ERROR, Superposicion de barcos detectada\n");
+                exit(0);
+            }
             for(int i=0;i<largo;i++){
                 matriz[posY][intposX] = lista[c];
-                printf("%d , %d horizontal \n", intposX, posY);
+                //printf("%d , %d horizontal \n", intposX, posY);
                 intposX ++;
-            }
+                }
+            
         }
         else if(orientacion == 118){ //Vertical
-            for(int i=0;i<largo;i++){
-                matriz[posY][intposX] = lista[c];
-                printf("%d , %d vertical \n", intposX, posY);
-                posY++;
+            if(matriz[posY][intposX] > 96 && matriz[posY][intposX] < 101){ 
+                printf("ERROR, Superposicion de barcos detectada\n");
+                exit(0);
             }
-        }        
-        printf("\n");//yap hacer hitscan aqui;jajajajajajjaj fuck you
-        
+            for(int i=0;i<largo;i++){
+                    matriz[posY][intposX] = lista[c];
+                    //printf("%d , %d vertical \n", intposX, posY);
+                    posY++;
+                }
+        }
+        printf("\n");//yap hacer hitscan aqui;
+         
     }
+    
 
     printf("  A  B  C  D  E  F  G  H  I  J\n");
 
      for (int i=0;i<10;i++){
          printf("%d",i);
         for (int j=0 ; j<10;j++){
-            char pos_actual = matriz[i][j]; //
-            if (pos_actual == 97){//
+            char pos_actual = matriz[i][j]; 
+            if (pos_actual == 97){//a
                 matriz[i][j] = lista[0];
                 printf("[%c]",matriz[i][j]);
                 continue;
             }
-            if (pos_actual == 98){//
+            if (pos_actual == 98){//b
                 matriz[i][j] = lista[1];
                 printf("[%c]",matriz[i][j]);
                 continue;
             }
-            if (pos_actual == 99){
+            if (pos_actual == 99){//c
                 matriz[i][j] = lista[2];
                 printf("[%c]",matriz[i][j]);
                 continue;
             }
-            if (pos_actual == 100){
+            if (pos_actual == 100){//d
                 matriz[i][j] = lista[3];
                 printf("[%c]",matriz[i][j]);
                 continue;
-            }  //no hacer nada pq esos espacios ya son 'b'
+            }  
             else{
                 matriz[i][j] = '_';
             }
@@ -167,7 +254,6 @@ char** imprimir_pantalla(char** Jpos){
         }
 
     return matriz; //matriz es el juego 
-                //no se puede retornar matriz :c
 }
 //aqui termina la wea del cucho---------------------------------|
 
@@ -179,35 +265,61 @@ char* concat(const char *s1, const char *s2){
     return result;
     }
 
-
-
-
 //recibe coordenada del jugador-----------------------------------------------|
 char** atacar(char** matriz){
     char cordenada_col[5];//scanf es mas retrasado q un monooooooo,segun yo para los int?
     int coordenada_fila;
-    char* lista_cor;
-    char s_fila[10];
-    printf("ingrese coordenada para atacar, primero ingrese la columna(A,B,C.....)\n");
-    scanf("%s",cordenada_col);
-    char letrita = cordenada_col[0];
-    int columna = traducir(letrita);
-    printf("%d",columna);
-    printf("\ningrese coordenada para atacar,ingrese la fila(1,2,3....)");
-    scanf("%d",&coordenada_fila);
-    //for 
+    int columna;
+
+    //Coordenadas ABC
+    while(1){
+        printf("ingrese coordenada para atacar, primero ingrese la columna(A,B,C.....)\n");
+        scanf("%s",cordenada_col);
+        char letrita = cordenada_col[0];
+        columna = traducir(letrita);
+        if(columna == 99){
+            printf("Letra No existe en el tablero\n");
+            continue;
+        }
+        else{
+            break;
+        }
+
+    }
+
+    //Coordenadas 123
+    while(1){
+        printf("\ningrese coordenada para atacar,ingrese la fila(1,2,3....)");
+        scanf("%d",&coordenada_fila);
+        if(coordenada_fila > 9 || coordenada_fila < 0){ //Comprobar que sean legales la fila
+            printf("Error, Coordenada ingresada Invalida.\n");
+            continue;
+        }
+        else{
+            break;
+        }
+    }
+    printf("%d Columna, %d Fila\n", columna, coordenada_fila);
+    printf("%c matriz\n", matriz[coordenada_fila][columna]);
+    printf("%d comparacion\n", matriz[coordenada_fila][columna] == 97 );
+
+    //impacto o no
+    if (matriz[coordenada_fila][columna] > 96 && matriz[coordenada_fila][columna] < 101){
+        matriz[coordenada_fila][columna] = 'X';
+        
+    }
+    else{
+        matriz[coordenada_fila][columna] = '.';
+        printf("Agua\n");
+    }
+    
       //  matriz[columna][coordenada_fila] = ;
     //sprintf(s_fila,"%d",coordenada_fila);
     // print our string
-    lista_cor=concat(cordenada_col,s_fila);//la pta q te pario
-    printf("coordenadas ingresadas: %s\n",lista_cor);
+    printf("coordenadas ingresadas: %d %d\n",coordenada_fila, columna);
     return matriz;//le tengo q poner &?
 
     }   
-
-
-
-
 
 char** leer(FILE* carpeta){
     
@@ -320,38 +432,55 @@ int main (int argc, char** argv){
     FILE*pos_J2;
     pos_J1=fopen(Archivo1,"r");
     pos_J2=fopen(Archivo2,"r");
-    
 
-    //char str[MAXCHAR];
-    //transformar esto en una funcion!!
-    printf("vamo vien \n");
-    
     char** J1 = leer(pos_J1);
-    //printf("%c",J1[0][0]);
-    printf("vamo vien  parte 2\n");
-    
-    //imprimir_pantalla(J1);
-    //printf("%c pos challa\n", weademat[0][1]);
-    
+    char** J2 = leer(pos_J2);
 
     //aqui empieza el progrma hipoteticamente
-    while(1){
-        char** tablero;
-        int player_num = 1;
-        printf("> Bienvenido al battleship chino\n");
-  
-        tablero = imprimir_pantalla(J1);
-        tablero = atacar(tablero);
+    char** tablero_1;
+    char** tablero_2;
+    tablero_1 = imprimir_pantalla(J1);
+    tablero_2 = imprimir_pantalla(J2);
+    int player_num = 1;
+    //MODO VERSUS
+    if((strcmp(argv[1], "-v")) == 0){
+        while(1){
+            
+            if(player_num ==1){
+                printf("\nturno player_1\n");
+                imprimir_tablero(tablero_1);
+                tablero_1 = atacar(tablero_1);
+                imprimir_tablero_Cheat(tablero_1);
+                condicion_ganar(tablero_1,player_num);
+                player_num = 2;
+            }
+            //turno jugador 2--------|
 
+            if (player_num == 2){
+
+                printf("turno player_2");
+                imprimir_tablero(tablero_2);
+                tablero_2 = atacar(tablero_2);
+                imprimir_tablero_Cheat(tablero_2);
+                condicion_ganar(tablero_1,player_num);
+                player_num = 1; 
+            }
+
+        }
+
+            //algo asi planeo y
+        //free(matriz);
     }
-
-        //algo asi planeo y
-    //free(matriz);
+    //MODO AUTO 
+    else if((strcmp(argv[1], "-a")) == 0){
+        printf("Este modo no esta programado aun xddxd\n");
+    }
+    else{
+        printf("Modo de juego invalido \n");
+    }
     free(Archivo1); 
     free(Archivo2); 
     fclose(pos_J1);
     fclose(pos_J2);
-
-    
     return 0;
 }
