@@ -18,9 +18,32 @@ char** imprimir_tablero(char** matriz){
 
     printf("  A  B  C  D  E  F  G  H  I  J\n");
      for (int i=0;i<10;i++){
+         
          printf("%d",i);
         for (int j=0 ; j<10;j++){
+            //Comprobar si la weita es barco y lo esconde
+            if (matriz[i][j] > 96 && matriz[i][j] < 101){
+                printf("[%c]", '_');
+            }
+            else{
+                printf("[%c]",matriz[i][j]);
+            }
             
+        }
+        printf("%d\n",i);
+        if (i==9){
+            printf("  A  B  C  D  E  F  G  H  I  J\n");
+            }
+        }
+
+    return 0;
+}
+char** imprimir_tablero_Cheat(char** matriz){
+
+    printf("  A  B  C  D  E  F  G  H  I  J\n");
+     for (int i=0;i<10;i++){
+         printf("%d",i);
+        for (int j=0 ; j<10;j++){ 
             printf("[%c]",matriz[i][j]);
             }
         printf("%d\n",i);
@@ -52,10 +75,32 @@ int traducir(char posX){
     return intposX;
 
 }
-
+int comprobar(int largo, int intposX, int posY, char orientacion){
+    if(largo < 1 || largo > 10 || posY > 9 || posY < 1){
+        printf("ERROR, Coordenadas son negativas y/o mayores a las permitidas \n");
+        exit(0);
+    }
+    if(orientacion == 104){
+        printf("%d, %c COMPROBAR en if\n", intposX, orientacion);
+        if(intposX == 9){
+            printf("ERROR, Barco sobrepasa el borde derecho del tablero\n");
+            exit(0);
+        }
+    }
+    if(orientacion == 118){
+        if((posY + largo - 1) > 9){
+            printf("ERROR, Barco sobrepasa el borde inferior\n");
+            exit(0);
+        }
+    
+    }
+    //poner los siguientes errores: Letras fuera de rango, borde inferior.
+    //Barcos ensima de otros barcos
+    return 0;
+}
 //------------------------------aqui empieza la wea del cucho
 char** imprimir_pantalla(char** Jpos){
-
+    
     char matriz_u[10][10];
     char** matriz = malloc(10*sizeof(char*));
     for(int i=0; i<10;i++){
@@ -73,11 +118,10 @@ char** imprimir_pantalla(char** Jpos){
 
     /*
     //Archivo be like:
-    int x = 0; //en cual fila (barco) estamos
-    int largo = Jpos[x][0]; //Largo barco
-    char posX = Jpos[x][1]; //Posicion en x (A, B, C ...)
-    int posY = Jpos[x][2]; //Posicion en y (0, 1, 2, ...)
-    char orientacion = Jpos[x][3]; //orientacion
+    //Jpos[x][0]; Largo barco
+    //Jpos[x][1]; Posicion en x (A, B, C ...)
+    //Jpos[x][2]; Posicion en y (0, 1, 2, ...)
+    //Jpos[x][3]; //orientacion
     */
     
     int largo;
@@ -85,18 +129,16 @@ char** imprimir_pantalla(char** Jpos){
     int posY;
     char orientacion;
     int intposX;
-    //poner barcos qlos, cambiar la wea de x para los demas barcos
-    //portaaviones
     char lista[4]={'a','b','c','d'};
     for (int c=0;c<4;c++){ //Recorrer Filas del array
         //Largo barco
         largo = Jpos[c][0] - 48;
         //printf("%d largo\n", largo);
-        //PosX
 
+        //PosX
         posX = Jpos[c][1];
         //printf("%c Jpos despues\n", Jpos[c][1]);
-        //printf("%c posX\n", posX);  
+        printf("%c posX\n", posX);  
 
 
         intposX = traducir(posX);
@@ -111,6 +153,7 @@ char** imprimir_pantalla(char** Jpos){
         //printf("%c orientacion\n", (char)orientacion); // Recorrer Las lineas y poner en MATRIZ
         
         //
+        comprobar(largo, intposX, posY, orientacion); //C O M P R O B A R  
         if (orientacion == 104){ //horizontal
             for(int i=0;i<largo;i++){
                 matriz[posY][intposX] = lista[c];
@@ -124,10 +167,11 @@ char** imprimir_pantalla(char** Jpos){
                 //printf("%d , %d vertical \n", intposX, posY);
                 posY++;
             }
-        }        
+        } 
         printf("\n");//yap hacer hitscan aqui;
-        
+         
     }
+    
 
     printf("  A  B  C  D  E  F  G  H  I  J\n");
 
@@ -180,9 +224,6 @@ char* concat(const char *s1, const char *s2){
     return result;
     }
 
-
-
-
 //recibe coordenada del jugador-----------------------------------------------|
 char** atacar(char** matriz){
     char cordenada_col[5];//scanf es mas retrasado q un monooooooo,segun yo para los int?
@@ -200,12 +241,11 @@ char** atacar(char** matriz){
     printf("%d comparacion\n", matriz[coordenada_fila][columna] == 97 );
     if (matriz[coordenada_fila][columna] > 96 && matriz[coordenada_fila][columna] < 101){
         matriz[coordenada_fila][columna] = 'X';
-        printf("Reemplaze la cagada de wea pero en realidad no lo hice por que soy mas aweonao que un ninja de la programacion\n");
+        
     }
     else{
         matriz[coordenada_fila][columna] = '.';
         printf("Agua\n");
-
     }
     
       //  matriz[columna][coordenada_fila] = ;
