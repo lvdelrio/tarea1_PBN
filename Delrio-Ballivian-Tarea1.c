@@ -71,12 +71,12 @@ int traducir(char posX){
     else if (posX == 72) intposX = 7;
     else if (posX == 73) intposX = 8;
     else if (posX == 74) intposX = 9;
-    else printf("Si entra aqui fallo la cagada\n");
+    else intposX = 99;
     return intposX;
 
 }
 int comprobar(int largo, int intposX, int posY, char orientacion){
-    if(largo < 1 || largo > 10 || posY > 9 || posY < 1){
+    if(largo < 1 || largo > 10 || posY > 9 || posY < 0){
         printf("ERROR, Coordenadas son negativas y/o mayores a las permitidas \n");
         exit(0);
     }
@@ -101,7 +101,6 @@ int comprobar(int largo, int intposX, int posY, char orientacion){
 //------------------------------aqui empieza la wea del cucho
 char** imprimir_pantalla(char** Jpos){
     
-    char matriz_u[10][10];
     char** matriz = malloc(10*sizeof(char*));
     for(int i=0; i<10;i++){
         matriz[i]=malloc(10*sizeof(char));
@@ -228,17 +227,41 @@ char* concat(const char *s1, const char *s2){
 char** atacar(char** matriz){
     char cordenada_col[5];//scanf es mas retrasado q un monooooooo,segun yo para los int?
     int coordenada_fila;
-    char* lista_cor;
-    char s_fila[10];
-    printf("ingrese coordenada para atacar, primero ingrese la columna(A,B,C.....)\n");
-    scanf("%s",cordenada_col);
-    char letrita = cordenada_col[0];
-    int columna = traducir(letrita);
-    printf("%d",columna);
-    printf("\ningrese coordenada para atacar,ingrese la fila(1,2,3....)");
-    scanf("%d",&coordenada_fila);
+    int columna;
+
+    //Coordenadas ABC
+    while(1){
+        printf("ingrese coordenada para atacar, primero ingrese la columna(A,B,C.....)\n");
+        scanf("%s",cordenada_col);
+        char letrita = cordenada_col[0];
+        columna = traducir(letrita);
+        if(columna == 99){
+            printf("Letra No existe en el tablero\n");
+            continue;
+        }
+        else{
+            break;
+        }
+
+    }
+
+    //Coordenadas 123
+    while(1){
+        printf("\ningrese coordenada para atacar,ingrese la fila(1,2,3....)");
+        scanf("%d",&coordenada_fila);
+        if(coordenada_fila > 9 || coordenada_fila < 0){ //Comprobar que sean legales la fila
+            printf("Error, Coordenada ingresada Invalida.\n");
+            continue;
+        }
+        else{
+            break;
+        }
+    }
+    printf("%d Columna, %d Fila\n", columna, coordenada_fila);
     printf("%c matriz\n", matriz[coordenada_fila][columna]);
     printf("%d comparacion\n", matriz[coordenada_fila][columna] == 97 );
+
+    //impacto o no
     if (matriz[coordenada_fila][columna] > 96 && matriz[coordenada_fila][columna] < 101){
         matriz[coordenada_fila][columna] = 'X';
         
@@ -371,40 +394,37 @@ int main (int argc, char** argv){
     FILE*pos_J2;
     pos_J1=fopen(Archivo1,"r");
     pos_J2=fopen(Archivo2,"r");
-    
 
-    //char str[MAXCHAR];
-    //transformar esto en una funcion!!
-    printf("vamo vien \n");
-    
     char** J1 = leer(pos_J1);
-    //printf("%c",J1[0][0]);
-    printf("vamo vien  parte 2\n");
-    
-    //imprimir_pantalla(J1);
-    //printf("%c pos challa\n", weademat[0][1]);
-    
 
     //aqui empieza el progrma hipoteticamente
     char** tablero;
     tablero = imprimir_pantalla(J1);
-    while(1){
-        
-        int player_num = 1;
-        printf("> Bienvenido al battleship chino\n");
-  
-        imprimir_tablero(tablero);
-        tablero = atacar(tablero);
+    //MODO VERSUS
+    if((strcmp(argv[1], "-v")) == 0){
+        while(1){
+                
+            int player_num = 1;
+            printf("> Bienvenido al battleship chino\n");
 
+            imprimir_tablero(tablero);
+            tablero = atacar(tablero);
+
+        }
+
+            //algo asi planeo y
+        //free(matriz);
     }
-
-        //algo asi planeo y
-    //free(matriz);
+    //MODO AUTO 
+    else if((strcmp(argv[1], "-a")) == 0){
+        printf("Este modo no esta programado aun xddxd\n");
+    }
+    else{
+        printf("Modo de juego invalido \n");
+    }
     free(Archivo1); 
     free(Archivo2); 
     fclose(pos_J1);
     fclose(pos_J2);
-
-    
     return 0;
 }
