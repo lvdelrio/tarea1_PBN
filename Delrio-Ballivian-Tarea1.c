@@ -434,6 +434,7 @@ int main (int argc, char** argv){
     pos_J2=fopen(Archivo2,"r");
 
     char** J1 = leer(pos_J1);
+<<<<<<< HEAD
     char** J2 = leer(pos_J2);
 
     //aqui empieza el progrma hipoteticamente
@@ -468,6 +469,24 @@ int main (int argc, char** argv){
 
         }
 
+=======
+
+    //aqui empieza el progrma hipoteticamente
+    char** tablero;
+    tablero = imprimir_pantalla(J1);
+    //MODO VERSUS
+    if((strcmp(argv[1], "-v")) == 0){
+        while(1){
+                
+            int player_num = 1;
+            printf("> Bienvenido al battleship chino\n");
+
+            imprimir_tablero(tablero);
+            tablero = atacar(tablero);
+
+        }
+
+>>>>>>> 5cfacbad84e4830249ac2aefb8305964f5208811
             //algo asi planeo y
         //free(matriz);
     }
