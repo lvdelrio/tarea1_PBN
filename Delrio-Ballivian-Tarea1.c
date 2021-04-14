@@ -162,19 +162,28 @@ char** imprimir_pantalla(char** Jpos){
         //
         comprobar(largo, intposX, posY, orientacion); //C O M P R O B A R  
         if (orientacion == 104){ //horizontal
+            if(matriz[posY][intposX] > 96 && matriz[posY][intposX] < 101){ //Comprobar superposicion
+                printf("ERROR, Superposicion de barcos detectada\n");
+                exit(0);
+            }
             for(int i=0;i<largo;i++){
                 matriz[posY][intposX] = lista[c];
                 //printf("%d , %d horizontal \n", intposX, posY);
                 intposX ++;
-            }
+                }
+            
         }
         else if(orientacion == 118){ //Vertical
-            for(int i=0;i<largo;i++){
-                matriz[posY][intposX] = lista[c];
-                //printf("%d , %d vertical \n", intposX, posY);
-                posY++;
+            if(matriz[posY][intposX] > 96 && matriz[posY][intposX] < 101){ 
+                printf("ERROR, Superposicion de barcos detectada\n");
+                exit(0);
             }
-        } 
+            for(int i=0;i<largo;i++){
+                    matriz[posY][intposX] = lista[c];
+                    //printf("%d , %d vertical \n", intposX, posY);
+                    posY++;
+                }
+        }
         printf("\n");//yap hacer hitscan aqui;
          
     }
@@ -185,27 +194,27 @@ char** imprimir_pantalla(char** Jpos){
      for (int i=0;i<10;i++){
          printf("%d",i);
         for (int j=0 ; j<10;j++){
-            char pos_actual = matriz[i][j]; //
-            if (pos_actual == 97){//
+            char pos_actual = matriz[i][j]; 
+            if (pos_actual == 97){//a
                 matriz[i][j] = lista[0];
                 printf("[%c]",matriz[i][j]);
                 continue;
             }
-            if (pos_actual == 98){//
+            if (pos_actual == 98){//b
                 matriz[i][j] = lista[1];
                 printf("[%c]",matriz[i][j]);
                 continue;
             }
-            if (pos_actual == 99){
+            if (pos_actual == 99){//c
                 matriz[i][j] = lista[2];
                 printf("[%c]",matriz[i][j]);
                 continue;
             }
-            if (pos_actual == 100){
+            if (pos_actual == 100){//d
                 matriz[i][j] = lista[3];
                 printf("[%c]",matriz[i][j]);
                 continue;
-            }  //no hacer nada pq esos espacios ya son 'b'
+            }  
             else{
                 matriz[i][j] = '_';
             }
