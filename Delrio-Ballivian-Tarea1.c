@@ -13,8 +13,9 @@ int executeShot(int g,int A[][10]);
 int incomingShot(char map[][max_col]);
 void welcomeScreen();
 
-int crear_pantalla(){
-    char matriz[12][12];
+
+char** imprimir_tablero(char** matriz){
+
     printf("  A  B  C  D  E  F  G  H  I  J\n");
      for (int i=0;i<10;i++){
          printf("%d",i);
@@ -31,8 +32,44 @@ int crear_pantalla(){
     return 0;
 }
 //Duplicado para recivir info con array
+
+int traducir(char posX){
+    int intposX = 0;
+
+    printf("la wea mal hecha es: %c\n", posX);
+    if (posX == 65) intposX = 0;
+    else if (posX == 66) intposX = 1;
+    else if (posX == 67) intposX = 2;
+    else if (posX == 68) intposX = 3;
+    else if (posX == 69) intposX = 4;
+    else if (posX == 70) intposX = 5;
+    else if (posX == 71) intposX = 6;
+    else if (posX == 72) intposX = 7;
+    else if (posX == 73) intposX = 8;
+    else if (posX == 74) intposX = 9;
+    else printf("Si entra aqui fallo la cagada\n");
+    return intposX;
+
+}
+
+//------------------------------aqui empieza la wea del cucho
 char** imprimir_pantalla(char** Jpos){
-    char matriz[12][12];
+
+    char matriz_u[10][10];
+    char** matriz = malloc(10*sizeof(char*));
+    for(int i=0; i<10;i++){
+        matriz[i]=malloc(10*sizeof(char));
+        
+    }
+    for(int i=0; i<10;i++){
+        printf("\n");
+        for(int j=0; j<10;j++){
+            matriz[i][j] = '_';
+            printf("[%c]",matriz[i][j]);
+        }
+    } 
+    
+
     /*
     //Archivo be like:
     int x = 0; //en cual fila (barco) estamos
@@ -41,84 +78,80 @@ char** imprimir_pantalla(char** Jpos){
     int posY = Jpos[x][2]; //Posicion en y (0, 1, 2, ...)
     char orientacion = Jpos[x][3]; //orientacion
     */
+    
     int largo;
     char posX;
     int posY;
     char orientacion;
     int intposX;
-    
     //poner barcos qlos, cambiar la wea de x para los demas barcos
     //portaaviones
-    for (int c=0;c<3;c++){ //Recorrer Filas del array
+    char lista[4]={'a','b','c','d'};
+    for (int c=0;c<4;c++){ //Recorrer Filas del array
         //Largo barco
-<<<<<<< HEAD
-        largo = Jpos[0][c];
-        //PosX
-        posX = Jpos[1][c];
-        
-        if ((strcmp(&posX,"A")) == 0) intposX = 0;
-/*
-        else if (strcmp(posX, 'B') == 1) intposX = 1;
-        else if (strcmp(posX, 'C') == 1) intposX = 2;
-        else if (strcmp(posX, 'D') == 1) intposX = 3;
-        else if (strcmp(posX, 'E') == 1) intposX = 4;
-        else if (strcmp(posX, 'F') == 1) intposX = 5;
-        else if (strcmp(posX, 'G') == 1) intposX = 6;
-        else if (strcmp(posX, 'H') == 1) intposX = 7;
-        else if (strcmp(posX, 'I') == 1) intposX = 8;
-        else if (strcmp(posX, 'J') == 1) intposX = 9;
-        */
-
-        else printf("Que chucha weon \n");
-=======
         largo = Jpos[c][0] - 48;
         printf("%d largo\n", largo);
         //PosX
+
         posX = Jpos[c][1];
-        printf("%s posX\n", &posX); //Segundo loop esta wea deja la pura zorra
-        if (strcmp(&posX, "A") == 0) intposX = 0;
-        else if (strcmp(&posX, "B") == 0) intposX = 1;
-        else if (strcmp(&posX, "C") == 0) intposX = 2;
-        else if (strcmp(&posX, "D") == 0) intposX = 3;
-        else if (strcmp(&posX, "E") == 0) intposX = 4;
-        else if (strcmp(&posX, "F") == 0) intposX = 5;
-        else if (strcmp(&posX, "G") == 0) intposX = 6;
-        else if (strcmp(&posX, "H") == 0) intposX = 7;
-        else if (strcmp(&posX, "I") == 0) intposX = 8;
-        else if (strcmp(&posX, "J") == 0) intposX = 9;
+        //printf("%c Jpos despues\n", Jpos[c][1]);
+        printf("%c posX\n", posX); 
+
+
+        intposX = traducir(posX);
+
+
         printf("%d int posX\n", intposX);
-        //else printf("Que chucha weon \n");
->>>>>>> 8c9956b6d59fdc47be15bac46ed533a85650fa1e
         //PosY
         posY = Jpos[c][2] - 48;
         printf("%d posY\n", posY);
         //oreintacion 
-        orientacion = Jpos[c][3];// Recorrer Las lineas y poner en MATRIZ
-        printf("%s oreintacion\n", &orientacion);
-        printf("%d wea de strncmsdsadhjaskld esa wea \n", strcmp(&orientacion, "h"));
-        if (strcmp(&orientacion, "h") == 0){
+        orientacion = Jpos[c][3];
+        printf("%c orientacion\n", (char)orientacion); // Recorrer Las lineas y poner en MATRIZ
+        
+        //
+        if (orientacion == 104){ //horizontal
             for(int i=0;i<largo;i++){
-                matriz[intposX][posY] = 'b';
+                matriz[posY][intposX] = lista[c];
                 printf("%d , %d horizontal \n", intposX, posY);
                 intposX ++;
             }
         }
-        else if(strcmp(&orientacion, "v") == 0){
+        else if(orientacion == 118){ //Vertical
             for(int i=0;i<largo;i++){
-                matriz[intposX][posY] = 'b';
+                matriz[posY][intposX] = lista[c];
                 printf("%d , %d vertical \n", intposX, posY);
                 posY++;
             }
         }        
-        printf("\n");
-    } 
+        printf("\n");//yap hacer hitscan aqui;jajajajajajjaj fuck you
+        
+    }
 
     printf("  A  B  C  D  E  F  G  H  I  J\n");
+
      for (int i=0;i<10;i++){
          printf("%d",i);
         for (int j=0 ; j<10;j++){
-            char pos_actual = matriz[i][j]; //Esta wea tambien esta dejando la zorra 
-            if (strcmp(&pos_actual, "b") == 1){
+            char pos_actual = matriz[i][j]; //
+            if (pos_actual == 97){//
+                matriz[i][j] = lista[0];
+                printf("[%c]",matriz[i][j]);
+                continue;
+            }
+            if (pos_actual == 98){//
+                matriz[i][j] = lista[1];
+                printf("[%c]",matriz[i][j]);
+                continue;
+            }
+            if (pos_actual == 99){
+                matriz[i][j] = lista[2];
+                printf("[%c]",matriz[i][j]);
+                continue;
+            }
+            if (pos_actual == 100){
+                matriz[i][j] = lista[3];
+                printf("[%c]",matriz[i][j]);
                 continue;
             }  //no hacer nada pq esos espacios ya son 'b'
             else{
@@ -133,8 +166,10 @@ char** imprimir_pantalla(char** Jpos){
             }
         }
 
-    return 0;
+    return matriz; //matriz es el juego 
+                //no se puede retornar matriz :c
 }
+//aqui termina la wea del cucho---------------------------------|
 
 char* concat(const char *s1, const char *s2){
     char *result = malloc(strlen(s1) + strlen(s2) + 1); // +1 for the null-terminator
@@ -143,7 +178,36 @@ char* concat(const char *s1, const char *s2){
     strcat(result, s2);
     return result;
     }
-//Esto me tira core dumped
+
+
+
+
+//recibe coordenada del jugador-----------------------------------------------|
+char** atacar(char** matriz){
+    char cordenada_col[5];//scanf es mas retrasado q un monooooooo,segun yo para los int?
+    int coordenada_fila;
+    char* lista_cor;
+    char s_fila[10];
+    printf("ingrese coordenada para atacar, primero ingrese la columna(A,B,C.....)\n");
+    scanf("%s",cordenada_col);
+    char letrita = cordenada_col[0];
+    int columna = traducir(letrita);
+    printf("%d",columna);
+    printf("\ningrese coordenada para atacar,ingrese la fila(1,2,3....)");
+    scanf("%d",&coordenada_fila);
+    //for 
+      //  matriz[columna][coordenada_fila] = ;
+    //sprintf(s_fila,"%d",coordenada_fila);
+    // print our string
+    lista_cor=concat(cordenada_col,s_fila);//la pta q te pario
+    printf("coordenadas ingresadas: %s\n",lista_cor);
+    return matriz;//le tengo q poner &?
+
+    }   
+
+
+
+
 
 char** leer(FILE* carpeta){
     
@@ -256,10 +320,7 @@ int main (int argc, char** argv){
     FILE*pos_J2;
     pos_J1=fopen(Archivo1,"r");
     pos_J2=fopen(Archivo2,"r");
-
     
-    //welcomeScreen();
-    crear_pantalla();
 
     //char str[MAXCHAR];
     //transformar esto en una funcion!!
@@ -268,9 +329,24 @@ int main (int argc, char** argv){
     char** J1 = leer(pos_J1);
     //printf("%c",J1[0][0]);
     printf("vamo vien  parte 2\n");
-    imprimir_pantalla(J1);
+    
+    //imprimir_pantalla(J1);
+    //printf("%c pos challa\n", weademat[0][1]);
+    
 
+    //aqui empieza el progrma hipoteticamente
+    while(1){
+        char** tablero;
+        int player_num = 1;
+        printf("> Bienvenido al battleship chino\n");
+  
+        tablero = imprimir_pantalla(J1);
+        tablero = atacar(tablero);
 
+    }
+
+        //algo asi planeo y
+    //free(matriz);
     free(Archivo1); 
     free(Archivo2); 
     fclose(pos_J1);
