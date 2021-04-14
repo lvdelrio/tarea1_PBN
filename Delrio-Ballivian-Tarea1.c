@@ -86,15 +86,23 @@ int comprobar(int largo, int intposX, int posY, char orientacion){
             printf("ERROR, Barco sobrepasa el borde derecho del tablero\n");
             exit(0);
         }
+        else if((intposX + largo - 1) > 9){
+            printf("ERROR, Barco sobrepasa el borde derecho\n");
+            exit(0);
+        }
     }
     if(orientacion == 118){
         if((posY + largo - 1) > 9){
             printf("ERROR, Barco sobrepasa el borde inferior\n");
             exit(0);
         }
+        if(posY == 9){
+            printf("ERROR, Barco sobrepasa el borde inferior\n");
+            exit(0);
+        }
     
     }
-    //poner los siguientes errores: Letras fuera de rango, borde inferior.
+    //ERROR:
     //Barcos ensima de otros barcos
     return 0;
 }
@@ -211,7 +219,6 @@ char** imprimir_pantalla(char** Jpos){
         }
 
     return matriz; //matriz es el juego 
-                //no se puede retornar matriz :c
 }
 //aqui termina la wea del cucho---------------------------------|
 
@@ -278,10 +285,6 @@ char** atacar(char** matriz){
     return matriz;//le tengo q poner &?
 
     }   
-
-
-
-
 
 char** leer(FILE* carpeta){
     
