@@ -107,7 +107,6 @@ int comprobar(int largo, int intposX, int posY, char orientacion){
         exit(0);
     }
     if(orientacion == 104){
-        printf("%d, %c COMPROBAR en if\n", intposX, orientacion);
         if(intposX == 9){
             printf("ERROR, Barco sobrepasa el borde derecho del tablero\n");
             exit(0);
@@ -317,13 +316,11 @@ char** atacar(char** matriz){
     //sprintf(s_fila,"%d",coordenada_fila);
     // print our string
     printf("coordenadas ingresadas: %d %d\n",coordenada_fila, columna);
-    return matriz;//le tengo q poner &?
+    return matriz;
 
     }   
 
 char** leer(FILE* carpeta){
-    
-
     char* token;
     int i;
     char **lineas = malloc(sizeof(char*)*4);
@@ -333,60 +330,37 @@ char** leer(FILE* carpeta){
         
         int contador = 0;
 
-        
-
-        
         while ((fgets(line, sizeof line, carpeta)) != NULL){
             char* linea = malloc(sizeof(char)*4);
             token = strtok(line, ";");
-            
-            //strcpy(linea,"");
-            
-            for(i=0;i<5;i++){
-                
-                
-                
-                if(i==0){   
 
-                    //printf("\n%s\n",token);
+            for(i=0;i<5;i++){
+                if(i==0){   
                     token = strtok(NULL,";");
                     }
                 
                 if(i==1){  
-
                     linea=concat(linea,token);
-                    //printf("%d\n",atoi(token));
                     token = strtok(NULL,";");
-                    
                     }
                     
                 if(i==2){   
                     linea=concat(linea,token);
-                    //printf("%s\n",token);
                     token = strtok(NULL,";");
-                    
                     }
                     
                 if(i==3){   
                     linea=concat(linea,token);
-                    //printf("%d\n",atoi(token));
                     token = strtok(NULL,";");
                     }
 
                 if(i==4){   
                     linea=concat(linea,token);
-                    //printf("%s\n",token);
                     token = strtok(NULL,"\n");
                     }
-                
-                
             }
             lineas[contador] = linea;
-
             contador++;
-        
-            
-            
         }
 
         
@@ -434,7 +408,6 @@ int main (int argc, char** argv){
     pos_J2=fopen(Archivo2,"r");
 
     char** J1 = leer(pos_J1);
-<<<<<<< HEAD
     char** J2 = leer(pos_J2);
 
     //aqui empieza el progrma hipoteticamente
@@ -469,24 +442,6 @@ int main (int argc, char** argv){
 
         }
 
-=======
-
-    //aqui empieza el progrma hipoteticamente
-    char** tablero;
-    tablero = imprimir_pantalla(J1);
-    //MODO VERSUS
-    if((strcmp(argv[1], "-v")) == 0){
-        while(1){
-                
-            int player_num = 1;
-            printf("> Bienvenido al battleship chino\n");
-
-            imprimir_tablero(tablero);
-            tablero = atacar(tablero);
-
-        }
-
->>>>>>> 5cfacbad84e4830249ac2aefb8305964f5208811
             //algo asi planeo y
         //free(matriz);
     }
