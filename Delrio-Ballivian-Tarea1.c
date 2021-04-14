@@ -20,7 +20,7 @@ char** imprimir_tablero(char** matriz){
      for (int i=0;i<10;i++){
          printf("%d",i);
         for (int j=0 ; j<10;j++){
-            matriz[i][j] = '_';
+            
             printf("[%c]",matriz[i][j]);
             }
         printf("%d\n",i);
@@ -31,12 +31,13 @@ char** imprimir_tablero(char** matriz){
 
     return 0;
 }
+
 //Duplicado para recivir info con array
 
 int traducir(char posX){
     int intposX = 0;
 
-    printf("la wea mal hecha es: %c\n", posX);
+    //printf("la wea mal hecha es: %c\n", posX);
     if (posX == 65) intposX = 0;
     else if (posX == 66) intposX = 1;
     else if (posX == 67) intposX = 2;
@@ -90,41 +91,41 @@ char** imprimir_pantalla(char** Jpos){
     for (int c=0;c<4;c++){ //Recorrer Filas del array
         //Largo barco
         largo = Jpos[c][0] - 48;
-        printf("%d largo\n", largo);
+        //printf("%d largo\n", largo);
         //PosX
 
         posX = Jpos[c][1];
         //printf("%c Jpos despues\n", Jpos[c][1]);
-        printf("%c posX\n", posX); 
+        //printf("%c posX\n", posX);  
 
 
         intposX = traducir(posX);
 
 
-        printf("%d int posX\n", intposX);
+        //printf("%d int posX\n", intposX);
         //PosY
         posY = Jpos[c][2] - 48;
-        printf("%d posY\n", posY);
+        //printf("%d posY\n", posY);
         //oreintacion 
         orientacion = Jpos[c][3];
-        printf("%c orientacion\n", (char)orientacion); // Recorrer Las lineas y poner en MATRIZ
+        //printf("%c orientacion\n", (char)orientacion); // Recorrer Las lineas y poner en MATRIZ
         
         //
         if (orientacion == 104){ //horizontal
             for(int i=0;i<largo;i++){
                 matriz[posY][intposX] = lista[c];
-                printf("%d , %d horizontal \n", intposX, posY);
+                //printf("%d , %d horizontal \n", intposX, posY);
                 intposX ++;
             }
         }
         else if(orientacion == 118){ //Vertical
             for(int i=0;i<largo;i++){
                 matriz[posY][intposX] = lista[c];
-                printf("%d , %d vertical \n", intposX, posY);
+                //printf("%d , %d vertical \n", intposX, posY);
                 posY++;
             }
         }        
-        printf("\n");//yap hacer hitscan aqui;jajajajajajjaj fuck you
+        printf("\n");//yap hacer hitscan aqui;
         
     }
 
@@ -195,12 +196,22 @@ char** atacar(char** matriz){
     printf("%d",columna);
     printf("\ningrese coordenada para atacar,ingrese la fila(1,2,3....)");
     scanf("%d",&coordenada_fila);
-    //for 
+    printf("%c matriz\n", matriz[coordenada_fila][columna]);
+    printf("%d comparacion\n", matriz[coordenada_fila][columna] == 97 );
+    if (matriz[coordenada_fila][columna] > 96 && matriz[coordenada_fila][columna] < 101){
+        matriz[coordenada_fila][columna] = 'X';
+        printf("Reemplaze la cagada de wea pero en realidad no lo hice por que soy mas aweonao que un ninja de la programacion\n");
+    }
+    else{
+        matriz[coordenada_fila][columna] = '.';
+        printf("Agua\n");
+
+    }
+    
       //  matriz[columna][coordenada_fila] = ;
     //sprintf(s_fila,"%d",coordenada_fila);
     // print our string
-    lista_cor=concat(cordenada_col,s_fila);//la pta q te pario
-    printf("coordenadas ingresadas: %s\n",lista_cor);
+    printf("coordenadas ingresadas: %d %d\n",coordenada_fila, columna);
     return matriz;//le tengo q poner &?
 
     }   
@@ -335,12 +346,14 @@ int main (int argc, char** argv){
     
 
     //aqui empieza el progrma hipoteticamente
+    char** tablero;
+    tablero = imprimir_pantalla(J1);
     while(1){
-        char** tablero;
+        
         int player_num = 1;
         printf("> Bienvenido al battleship chino\n");
   
-        tablero = imprimir_pantalla(J1);
+        imprimir_tablero(tablero);
         tablero = atacar(tablero);
 
     }
