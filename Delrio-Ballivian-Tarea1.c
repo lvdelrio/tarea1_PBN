@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <time.h>
 
 //is like globals variable
 #define max_rows 10
@@ -17,20 +18,25 @@ void welcomeScreen();
 //condicion de ganar-------------------------------|
 //las condiciones para ganar son, J1 mata al J2 o CPU, por ende recibe ambos tableros
 int condicion_ganar(char** tablero,int player_num){
-    for (int i=0;i<10;i++){
-        for(int j=0;j>10;j++){
-            //verifica que en el tablero 1 son puros puntos x o guion
-            if((tablero[i][j] != 88) || (tablero[i][j] != 95) || (tablero[i][j] != 46)){
+    printf("despues de entrar a condiciones\n");
+    int contador = 0;
+    for(int i=0;i<10;i++){
+        for(int j=0;j<10;j++){
+
+            //printf("antes del if por la shit\n");
+
+            if((tablero[i][j] != 'X') && (tablero[i][j] != '_') && (tablero[i][j] != '.')){
+                printf("entro esta mierda: %c\n",tablero[i][j]);
+                contador++;
                 return 0;
                 }
-            
-            else{
-                printf("Jugador %d gano el juego",player_num);
-                exit(0);
-                }
-
         }
     }
+    if (contador==0){
+        printf("GANO EL JUGADOR %d", player_num);
+        exit(0);
+    }
+
 
 }
 
@@ -265,7 +271,29 @@ char* concat(const char *s1, const char *s2){
     return result;
     }
 
+//recibe coordenada del bot-----------------------------------------------|
+//hacer que no coloque dos veces la msima coordenada
+char** atacar_bot(char** matriz){
+    int columna;
+    int fila;
+    srand(time(NULL));
+    columna = rand()%10;
+    fila = rand()%10;
+    printf("\ncoordenadas ingresadas por el bot: %d y %d\n",fila,columna);
+    if (matriz[fila][columna] > 96 && matriz[fila][columna] < 101){
+        matriz[fila][columna] = 'X';
+        printf("Impacto!\n");
+        
+    }
+    else{
+        matriz[fila][columna] = '.';
+        printf("Agua!\n");
+    }
+    return matriz;
+
+}
 //recibe coordenada del jugador-----------------------------------------------|
+//hacer que no coloque dos veces la msima coordenada
 char** atacar(char** matriz){
     char cordenada_col[5];//scanf es mas retrasado q un monooooooo,segun yo para los int?
     int coordenada_fila;
@@ -306,11 +334,12 @@ char** atacar(char** matriz){
     //impacto o no
     if (matriz[coordenada_fila][columna] > 96 && matriz[coordenada_fila][columna] < 101){
         matriz[coordenada_fila][columna] = 'X';
+        printf("Impacto!\n");
         
     }
     else{
         matriz[coordenada_fila][columna] = '.';
-        printf("Agua\n");
+        printf("Agua!\n");
     }
     
       //  matriz[columna][coordenada_fila] = ;
@@ -320,6 +349,11 @@ char** atacar(char** matriz){
     return matriz;//le tengo q poner &?
 
     }   
+
+
+
+
+
 
 char** leer(FILE* carpeta){
     
@@ -434,7 +468,6 @@ int main (int argc, char** argv){
     pos_J2=fopen(Archivo2,"r");
 
     char** J1 = leer(pos_J1);
-<<<<<<< HEAD
     char** J2 = leer(pos_J2);
 
     //aqui empieza el progrma hipoteticamente
@@ -442,57 +475,61 @@ int main (int argc, char** argv){
     char** tablero_2;
     tablero_1 = imprimir_pantalla(J1);
     tablero_2 = imprimir_pantalla(J2);
-    int player_num = 1;
+    int player_num = 2;
     //MODO VERSUS
     if((strcmp(argv[1], "-v")) == 0){
+        printf("bienvenido al battleship peruano, estas en el modo versus, jvj");
         while(1){
             
-            if(player_num ==1){
+            if(player_num ==2){
                 printf("\nturno player_1\n");
-                imprimir_tablero(tablero_1);
-                tablero_1 = atacar(tablero_1);
-                imprimir_tablero_Cheat(tablero_1);
-                condicion_ganar(tablero_1,player_num);
-                player_num = 2;
+                imprimir_tablero(tablero_2);
+                tablero_2 = atacar(tablero_2);
+                imprimir_tablero_Cheat(tablero_2);
+                printf("cantes de entrar a condiciones");
+                condicion_ganar(tablero_2,player_num);
+                //player_num = 2;
             }
             //turno jugador 2--------|
 
-            if (player_num == 2){
+            if (player_num == 1){
 
                 printf("turno player_2");
                 imprimir_tablero(tablero_2);
                 tablero_2 = atacar(tablero_2);
                 imprimir_tablero_Cheat(tablero_2);
-                condicion_ganar(tablero_1,player_num);
-                player_num = 1; 
+                condicion_ganar(tablero_2,player_num);
+                //player_num = 1; 
             }
+ 
 
         }
 
-=======
-
-    //aqui empieza el progrma hipoteticamente
-    char** tablero;
-    tablero = imprimir_pantalla(J1);
-    //MODO VERSUS
-    if((strcmp(argv[1], "-v")) == 0){
-        while(1){
-                
-            int player_num = 1;
-            printf("> Bienvenido al battleship chino\n");
-
-            imprimir_tablero(tablero);
-            tablero = atacar(tablero);
-
-        }
-
->>>>>>> 5cfacbad84e4830249ac2aefb8305964f5208811
             //algo asi planeo y
         //free(matriz);
     }
     //MODO AUTO 
     else if((strcmp(argv[1], "-a")) == 0){
-        printf("Este modo no esta programado aun xddxd\n");
+        printf("bienvenido al battleship peruano, estas en el modo autista, jvCPU");
+        while(1){
+            printf("\nTurno del jugador 1\n");
+            imprimir_tablero(tablero_2);
+            tablero_2 = atacar(tablero_2);
+            imprimir_tablero(tablero_2);
+            //imprimir_tablero_Cheat(tablero_1);
+            printf("cantes de entrar a condiciones");
+            condicion_ganar(tablero_2,player_num);
+            //turno del bot qlo
+            printf("\nes turno del CPU\n");
+            imprimir_tablero(tablero_1);
+            tablero_1 = atacar_bot(tablero_1);
+            imprimir_tablero(tablero_1);
+            //imprimir_tablero_Cheat(tablero_1);
+
+            condicion_ganar(tablero_1,player_num);
+
+
+        }
     }
     else{
         printf("Modo de juego invalido \n");
