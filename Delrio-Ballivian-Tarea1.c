@@ -4,12 +4,10 @@
 #include <time.h>
 
 char* array_J1;
-//char* array_J2;
 
 //condicion de ganar-------------------------------|
 //las condiciones para ganar son, J1 mata al J2 o CPU, por ende recibe ambos tableros
 int condicion_ganar(char** tablero,int player_num){
-    printf("despues de entrar a condiciones\n");
     int contador = 0;
     for(int i=0;i<10;i++){
         for(int j=0;j<10;j++){
@@ -25,7 +23,7 @@ int condicion_ganar(char** tablero,int player_num){
         exit(0);
     }
 
-
+    return 0;
 }
 
 char** imprimir_tablero(char** matriz){
@@ -52,8 +50,8 @@ char** imprimir_tablero(char** matriz){
 
     return 0;
 }
-//imprimir tablero DEBUG
 
+//imprimir tablero Para saber respuestas
 char** imprimir_tablero_Cheat(char** matriz){
 
     printf("  A  B  C  D  E  F  G  H  I  J\n");
@@ -169,47 +167,35 @@ char** imprimir_pantalla(char** Jpos){
         printf("\n");
     } 
     //Tablero
-    //printf("  A  B  C  D  E  F  G  H  I  J\n");
      for (int i=0;i<10;i++){
-         //printf("%d",i);
         for (int j=0 ; j<10;j++){
             char pos_actual = matriz[i][j]; 
             if (pos_actual == 97){//a
                 matriz[i][j] = lista[0];
-                //printf("[%c]",matriz[i][j]);
                 continue;
             }
             if (pos_actual == 98){//b
                 matriz[i][j] = lista[1];
-                //printf("[%c]",matriz[i][j]);
                 continue;
             }
             if (pos_actual == 99){//c
                 matriz[i][j] = lista[2];
-                //printf("[%c]",matriz[i][j]);
                 continue;
             }
             if (pos_actual == 100){//d
                 matriz[i][j] = lista[3];
-                //printf("[%c]",matriz[i][j]);
                 continue;
             }  
             else{
                 matriz[i][j] = '_';
             }
-            //printf("[%c]",matriz[i][j]);
-            }
-        //printf("%d\n",i);
-        if (i==9){
-            //printf("  A  B  C  D  E  F  G  H  I  J\n");
-            }
         }
+    }
 
     return matriz; //matriz es el juego 
 }
 char* concat(const char *s1, const char *s2){
-    char *result = malloc(strlen(s1) + strlen(s2) + 1); // +1 for the null-terminator
-    // in real code you would check for errors in malloc here
+    char *result = malloc(strlen(s1) + strlen(s2) + 1);
     strcpy(result, s1);
     strcat(result, s2);
     return result;
@@ -217,42 +203,23 @@ char* concat(const char *s1, const char *s2){
 
 char* barco_hundido(char** tablero){
     int contador_barco1 = 0, contador_barco2 = 0, contador_barco3 = 0, contador_barco4 = 0;
-    int contador_barco1_j2 = 0,contador_barco2_j2 = 0,contador_barco3_j2 = 0,contador_barco4_j2 = 0;
-    //char* lista = malloc(4*sizeof(char));
-
-    printf("llegue a verificar tus weas de barcos\n");
     for (int i = 0; i<10;i++){
         for (int j = 0; j<10;j++){
-            //ehm verifico la existencia de la letra representativa de cada barco, y uso un contador para comprobar
-            //si ya pase una vez ahi
-            printf("tu wea de caracter es %c %d \n",tablero[i][j],contador_barco1);
             //------comprueba estado del primer barco------------------|
             if (tablero[i][j] == 'a'){
                 contador_barco1++;
                     
             } 
-            //---------------------------------------------------------|
-
-
             //------comprueba estado del segundo barco------------------|
             if (tablero[i][j] == 'b'){
                 contador_barco2++;
                     
             }
-
-            //-----------------------------------------------------------|
-            
-
-
             //------comprueba estado del tercer barco------------------|
             if (tablero[i][j] == 'c' ){
                 contador_barco3++;
                    
             }
-
-            //---------------------------------------------------------|
-
-
 
             //------comprueba estado del cuarto barco------------------|    
             if (tablero[i][j] == 'd'){
@@ -282,9 +249,6 @@ char* barco_hundido(char** tablero){
         array_J1[3]=1;
         }
 
-
-
-
 //la parte de abajo verifica barco hundido para el J2-----------------|
 /*
     if (contador_barco1_j2 == 0 && array_J2[0] == 0){
@@ -303,12 +267,9 @@ char* barco_hundido(char** tablero){
         printf("4 barco hundido!! j2\n");
         array_J2[3]=1;
         }  
-    return 0;
 */
+    return 0;
 }
-
-
-
 
 //recibe coordenada del bot-----------------------------------------------|
 char** atacar_bot(char** matriz){
@@ -342,13 +303,13 @@ char** atacar_bot(char** matriz){
 }
 //recibe coordenada del jugador-----------------------------------------------|
 char** atacar(char** matriz){
-    char cordenada_col[5];//scanf es mas retrasado q un monooooooo,segun yo para los int?
+    char cordenada_col[5];
     int coordenada_fila;
     int columna;
     while(1){
         //Coordenadas ABC
         while(1){
-            printf("ingrese coordenada para atacar, primero ingrese la columna(A,B,C.....)\n");
+            printf("ingrese coordenada para atacar, primero ingrese la columna(A,B,C.....)");
             scanf("%s",cordenada_col);
             char letrita = cordenada_col[0];
             columna = traducir(letrita);
@@ -364,9 +325,9 @@ char** atacar(char** matriz){
 
         //Coordenadas 123
         while(1){
-            printf("\ningrese coordenada para atacar,ingrese la fila(1,2,3....)\n");
+            printf("\ningrese coordenada para atacar,ingrese la fila(0,1,2....)");
             scanf("%d",&coordenada_fila);
-            if(coordenada_fila > 9 || coordenada_fila < 0){ //Comprobar que sean legales la fila
+            if(coordenada_fila > 9 || coordenada_fila < 0){ 
                 printf("Error, Coordenada ingresada Invalida.\n");
                 continue;
             }
@@ -374,9 +335,6 @@ char** atacar(char** matriz){
                 break;
             }
         }
-        printf("%d Columna, %d Fila\n", columna, coordenada_fila);
-        printf("%c matriz\n", matriz[coordenada_fila][columna]);
-        printf("%d comparacion\n", matriz[coordenada_fila][columna] == 97 );
 
         //impacto o no
         if (matriz[coordenada_fila][columna] > 96 && matriz[coordenada_fila][columna] < 101){
@@ -451,11 +409,7 @@ char** leer(FILE* carpeta){
         printf("Error\n");  
         } 
     return lineas;
-    
-    
 }
-
-
 
 
 int main (int argc, char** argv){
@@ -464,21 +418,15 @@ int main (int argc, char** argv){
         array_J1[i] = 0;
         printf("%d",array_J1[i]);
     }
-    //array_J2 = calloc(4, sizeof(int));
-    //for (int i=0;i<4;i++){
-    //    array_J2[i] = 0;
-    //    printf("%d",array_J2[i]);
-    //}
-    //Modo
-    //char *mode = argv[1];
     printf("%d",argc);
 
     char *file_J1;
     char *file_J2;
     file_J1=argv[2];
     file_J2=argv[3];
-
-    char* Archivo2=concat(file_J2,".txt");
+    
+    //Recibe 4 Barcos
+    char* Archivo2=concat(file_J2,".txt"); 
     char* Archivo1=concat(file_J1,".txt");
 
     FILE*pos_J1;
@@ -489,17 +437,16 @@ int main (int argc, char** argv){
     char** J1 = leer(pos_J1);
     char** J2 = leer(pos_J2);
 
-    //aqui empieza el progrma hipoteticamente
     char** tablero_1;
     char** tablero_2;
     tablero_1 = imprimir_pantalla(J1);
     tablero_2 = imprimir_pantalla(J2);
+
     int player_num = 2;
-    //char lista[4];
     printf("MODO VERSUS\n");
     //MODO VERSUS
     if((strcmp(argv[1], "-v")) == 0){
-        printf("bienvenido al battleship peruano, estas en el modo versus, jvj");
+        printf("bienvenido al battleship, estas en el modo versus, jvj");
         while(1){
             
             if(player_num ==2){
@@ -507,8 +454,7 @@ int main (int argc, char** argv){
                 imprimir_tablero(tablero_2);
                 tablero_2 = atacar(tablero_2);
                 imprimir_tablero(tablero_2);
-                //imprimir_tablero_Cheat(tablero_2); 
-                printf("cantes de entrar a condiciones");
+                //imprimir_tablero_Cheat(tablero_2); //Tablero respuesta
                 condicion_ganar(tablero_2,player_num);
                 player_num = 1;
             }
@@ -520,7 +466,7 @@ int main (int argc, char** argv){
                 imprimir_tablero(tablero_1);
                 tablero_1 = atacar(tablero_1);
                 imprimir_tablero(tablero_1);
-                //imprimir_tablero_Cheat(tablero_1); 
+                //imprimir_tablero_Cheat(tablero_1); //Tablero respuesta
                 condicion_ganar(tablero_1,player_num);
                 player_num = 2; 
             }
@@ -534,15 +480,14 @@ int main (int argc, char** argv){
             imprimir_tablero(tablero_2);
             tablero_2 = atacar(tablero_2);
             imprimir_tablero(tablero_2);
-            //imprimir_tablero_Cheat(tablero_1); DEBUG
-            printf("cantes de entrar a condiciones");
+            //imprimir_tablero_Cheat(tablero_1); //Tablero respuesta
             condicion_ganar(tablero_2,player_num);
             //turno del bot 
             printf("\nes turno del CPU\n");
             imprimir_tablero(tablero_1);
             tablero_1 = atacar_bot(tablero_1);
             imprimir_tablero(tablero_1);
-            //imprimir_tablero_Cheat(tablero_1); DEBUG
+            //imprimir_tablero_Cheat(tablero_1); //Tablero respuesta
 
             condicion_ganar(tablero_1,player_num);
 
@@ -558,10 +503,4 @@ int main (int argc, char** argv){
     fclose(pos_J2);
     return 0;
 }
-//Archivo be like:
-    //Jpos[x][0]; Largo barco
-    //Jpos[x][1]; Posicion en x (A, B, C ...)
-    //Jpos[x][2]; Posicion en y (0, 1, 2, ...)
-    //Jpos[x][3]; //orientacion
 //gcc -std=c99 -Wall -Wextra -Wundef -Werror -Wuninitialized -Winit-self Delrio-Ballivian-Tarea1.c -o salida  && ./salida -v posicionesJ1 posicionesJ2
-//LIMPIAR MATRIZES QUE SE PONEN PQ SI.
