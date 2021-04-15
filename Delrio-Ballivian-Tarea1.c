@@ -40,12 +40,6 @@ int condicion_ganar(char** tablero,int player_num){
 
 }
 
-
-
-
-
-
-
 char** imprimir_tablero(char** matriz){
 
     printf("  A  B  C  D  E  F  G  H  I  J\n");
