@@ -1,4 +1,4 @@
-portaaviones;2;A;0;h
-buque;2;C;0;h
-submarino;2;E;0;h
-crucero;2;G;0;h
+portaaviones;5;A;1;h
+buque;4;J;0;v
+submarino;3;D;4;h
+crucero;2;F;5;v
