@@ -3,18 +3,6 @@
 #include <stdlib.h>
 #include <time.h>
 
-//is like globals variable
-#define max_rows 10
-#define max_col 10
-#define MAXCHAR 1000
-
-//functions
-void printMap(char map[][max_col]);
-int executeShot(int g,int A[][10]);
-int incomingShot(char map[][max_col]);
-void welcomeScreen();
-
-
 //condicion de ganar-------------------------------|
 //las condiciones para ganar son, J1 mata al J2 o CPU, por ende recibe ambos tableros
 int condicion_ganar(char** tablero,int player_num){
@@ -34,7 +22,7 @@ int condicion_ganar(char** tablero,int player_num){
         exit(0);
     }
 
-
+    return 0;
 }
 
 char** imprimir_tablero(char** matriz){
@@ -62,6 +50,7 @@ char** imprimir_tablero(char** matriz){
     return 0;
 }
 //imprimir tablero DEBUG
+
 char** imprimir_tablero_Cheat(char** matriz){
 
     printf("  A  B  C  D  E  F  G  H  I  J\n");
@@ -133,7 +122,7 @@ char** imprimir_pantalla(char** Jpos){
         printf("\n");
         for(int j=0; j<10;j++){
             matriz[i][j] = '_';
-            printf("[%c]",matriz[i][j]);
+            //printf("[%c]",matriz[i][j]);
         }
     } 
     int largo;
@@ -222,6 +211,71 @@ char* concat(const char *s1, const char *s2){
     strcat(result, s2);
     return result;
     }
+
+char* barco_hundido(char** tablero){
+    int contador_barco1 = 0, contador_barco2 = 0, contador_barco3 = 0, contador_barco4 = 0;
+    int existe_barco1 = 0,existe_barco2 = 0,existe_barco3 = 0,existe_barco4 = 0;
+    //char* lista = malloc(4*sizeof(char));
+
+    for (int i = 0; i<10;i++){
+        for (int j = 0; j<10;j++){
+            //ehm verifico la existencia de la letra representativa de cada barco, y uso un contador para comprobar
+            //si ya pase una vez ahi
+            //------comprueba estado del primer barco------------------|
+            if (tablero[i][j] == 'a'){
+                contador_barco1++;
+                    
+            }
+            if (contador_barco1 == 0 && existe_barco1 == 0){
+                    printf("1 barco hundido!!\n");
+                    existe_barco1++;
+                }  
+            //---------------------------------------------------------|
+
+
+            //------comprueba estado del segundo barco------------------|
+            if (tablero[i][j] == 'b'){
+                contador_barco2++;
+                    
+            }
+            if (contador_barco2 == 0 && existe_barco2 == 0){
+                    printf("2 barco hundido!!\n");
+                    existe_barco2++;
+                } 
+            //-----------------------------------------------------------|
+            
+
+
+            //------comprueba estado del tercer barco------------------|
+            if (tablero[i][j] == 'c' ){
+                contador_barco3++;
+                   
+            }
+            if (contador_barco3 == 0 && existe_barco3 == 0){
+                    printf("3 barco hundido!!\n");
+                    existe_barco3++;
+                }  
+            //---------------------------------------------------------|
+
+
+
+            //------comprueba estado del cuarto barco------------------|    
+            if (tablero[i][j] == 'd'){
+                contador_barco4++;
+                    
+            }
+            if (contador_barco4 == 0 && existe_barco4 == 0){
+                    printf("4 barco hundido!!\n");
+                    existe_barco4++;
+                } 
+        }
+    }
+    return 0;
+}
+
+
+
+
 //recibe coordenada del bot-----------------------------------------------|
 char** atacar_bot(char** matriz){
     int columna;
@@ -233,7 +287,8 @@ char** atacar_bot(char** matriz){
         printf("\ncoordenadas ingresadas por el bot: %d y %d\n",fila,columna);
         if (matriz[fila][columna] > 96 && matriz[fila][columna] < 101){
             matriz[fila][columna] = 'X';
-            printf("Impacto!\n");
+            printf("+ + + + + Impacto! + + + + + \n");
+            barco_hundido(matriz);
             break;
         }
         //Comprobacion de misma coordenada
@@ -244,7 +299,7 @@ char** atacar_bot(char** matriz){
                 }
         else{
             matriz[fila][columna] = '.';
-            printf("Agua!\n");
+            printf(". . . . . Agua! . . . . . \n");
             break;
         }
     }
@@ -253,7 +308,7 @@ char** atacar_bot(char** matriz){
 }
 //recibe coordenada del jugador-----------------------------------------------|
 char** atacar(char** matriz){
-    char cordenada_col[5];//scanf es mas retrasado q un monooooooo,segun yo para los int?
+    char cordenada_col[5];
     int coordenada_fila;
     int columna;
     while(1){
@@ -285,14 +340,15 @@ char** atacar(char** matriz){
                 break;
             }
         }
-        printf("%d Columna, %d Fila\n", columna, coordenada_fila);
-        printf("%c matriz\n", matriz[coordenada_fila][columna]);
-        printf("%d comparacion\n", matriz[coordenada_fila][columna] == 97 );
+        //printf("%d Columna, %d Fila\n", columna, coordenada_fila);
+        //printf("%c matriz\n", matriz[coordenada_fila][columna]);
+        //printf("%d comparacion\n", matriz[coordenada_fila][columna] == 97 );
 
         //impacto o no
         if (matriz[coordenada_fila][columna] > 96 && matriz[coordenada_fila][columna] < 101){
             matriz[coordenada_fila][columna] = 'X';
-            printf("Impacto!\n");
+            printf("+ + + + + Impacto! + + + + + \n");
+            //barco_hundido(matriz);
             break;
             
         }
@@ -305,13 +361,14 @@ char** atacar(char** matriz){
             } 
         else{
             matriz[coordenada_fila][columna] = '.';
-            printf("Agua!\n");
+            printf(". . . . . Agua! . . . . . \n");
             break;
         }
     }
-        printf("coordenadas ingresadas: %d %d\n",coordenada_fila, columna);
+        //printf("coordenadas ingresadas: %d %d\n",coordenada_fila, columna);
         return matriz;
     }
+
 
 char** leer(FILE* carpeta){
     char* token;
@@ -391,6 +448,7 @@ int main (int argc, char** argv){
     tablero_1 = imprimir_pantalla(J1);
     tablero_2 = imprimir_pantalla(J2);
     int player_num = 2;
+    //char lista[4];
     printf("MODO VERSUS\n");
     //MODO VERSUS
     if((strcmp(argv[1], "-v")) == 0){
@@ -400,9 +458,10 @@ int main (int argc, char** argv){
             if(player_num ==2){
                 printf("\nturno player_1\n");
                 imprimir_tablero(tablero_2);
+                printf("\n\n");
                 tablero_2 = atacar(tablero_2);
-                //imprimir_tablero_Cheat(tablero_2); DEBUG
-                printf("cantes de entrar a condiciones");
+                imprimir_tablero(tablero_2);
+                //imprimir_tablero_Cheat(tablero_2); 
                 condicion_ganar(tablero_2,player_num);
                 player_num = 1;
             }
@@ -410,10 +469,12 @@ int main (int argc, char** argv){
 
             if (player_num == 1){
 
-                printf("turno player_2");
+                printf("\nturno player_2\n");
                 imprimir_tablero(tablero_1);
+                printf("\n\n");
                 tablero_1 = atacar(tablero_1);
-                //imprimir_tablero_Cheat(tablero_1); DEBUG
+                imprimir_tablero(tablero_1);
+                //imprimir_tablero_Cheat(tablero_1); 
                 condicion_ganar(tablero_1,player_num);
                 player_num = 2; 
             }
@@ -421,14 +482,13 @@ int main (int argc, char** argv){
     }
     //MODO AUTO 
     else if((strcmp(argv[1], "-a")) == 0){
-        printf("bienvenido al battleship peruano, estas en el modo autista, jvCPU");
+        printf("bienvenido al battleship, estas en el modo Automatico, jvCPU");
         while(1){
             printf("\nTurno del jugador 1\n");
             imprimir_tablero(tablero_2);
             tablero_2 = atacar(tablero_2);
             imprimir_tablero(tablero_2);
             //imprimir_tablero_Cheat(tablero_1); DEBUG
-            printf("cantes de entrar a condiciones");
             condicion_ganar(tablero_2,player_num);
             //turno del bot 
             printf("\nes turno del CPU\n");
