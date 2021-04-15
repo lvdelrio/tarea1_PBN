@@ -517,4 +517,4 @@ int main (int argc, char** argv){
     //Jpos[x][2]; Posicion en y (0, 1, 2, ...)
     //Jpos[x][3]; //orientacion
 //gcc -std=c99 -Wall -Wextra -Wundef -Werror -Wuninitialized -Winit-self Delrio-Ballivian-Tarea1.c -o salida  && ./salida -v posicionesJ1 posicionesJ2
-//LIMPIAR MATRIZES QUE SE PONEN PQ SI.
+//LIMPIAR INSULTOS DE COMENTARIOS !!!!!!!!!
