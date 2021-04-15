@@ -462,7 +462,7 @@ int main (int argc, char** argv){
                 imprimir_tablero(tablero_2);
                 tablero_2 = atacar(tablero_2);
                 imprimir_tablero(tablero_2);
-                imprimir_tablero_Cheat(tablero_2); 
+                //imprimir_tablero_Cheat(tablero_2); 
                 printf("cantes de entrar a condiciones");
                 condicion_ganar(tablero_2,player_num);
                 player_num = 1;
@@ -475,7 +475,7 @@ int main (int argc, char** argv){
                 imprimir_tablero(tablero_1);
                 tablero_1 = atacar(tablero_1);
                 imprimir_tablero(tablero_1);
-                imprimir_tablero_Cheat(tablero_1); 
+                //imprimir_tablero_Cheat(tablero_1); 
                 condicion_ganar(tablero_1,player_num);
                 player_num = 2; 
             }
